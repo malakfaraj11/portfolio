@@ -3,6 +3,7 @@ import { getCertificates } from '@/actions/certificates';
 import ProjectCard from '@/components/ProjectCard';
 import CertificateCard from '@/components/CertificateCard';
 import PreloaderWrapper from '@/components/PreloaderWrapper';
+import { ScrollReveal } from '@/components/ScrollReveal';
 import { Briefcase, GraduationCap } from 'lucide-react';
 
 export default async function Home() {
@@ -104,7 +105,7 @@ export default async function Home() {
           
           {/* AT A GLANCE SECTION */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div className="sticky top-32">
+            <ScrollReveal direction="left" className="sticky top-32">
               <span className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Aperçu du Profil</span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] text-slate-900 dark:text-white mb-6">
                 Une passion pour le code, renforcée par <span className="bg-gradient-to-r from-blue-600 to-fuchsia-500 bg-clip-text text-transparent">la pratique</span>.
@@ -112,56 +113,66 @@ export default async function Home() {
               <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed">
                 Mon travail connecte les besoins métiers, l'expérience utilisateur intuitive et les architectures front-end modernes de haute performance.
               </p>
-            </div>
+            </ScrollReveal>
             
             <div className="flex flex-col gap-6">
               {/* Card 1 */}
-              <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-fuchsia-500/30 transition-colors relative overflow-hidden group shadow-sm">
-                <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">01</div>
-                <h3 className="text-xs font-mono font-bold text-fuchsia-600 dark:text-fuchsia-500 mb-2 uppercase tracking-wider">Formation</h3>
-                <p className="text-lg font-semibold text-slate-900 dark:text-gray-100">Ingénierie Informatique / Développement Web</p>
-              </div>
+              <ScrollReveal delay={0.1}>
+                <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-fuchsia-500/30 transition-colors relative overflow-hidden group shadow-sm">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">01</div>
+                  <h3 className="text-xs font-mono font-bold text-fuchsia-600 dark:text-fuchsia-500 mb-2 uppercase tracking-wider">Formation</h3>
+                  <p className="text-lg font-semibold text-slate-900 dark:text-gray-100">Ingénierie Informatique / Développement Web</p>
+                </div>
+              </ScrollReveal>
 
               {/* Card 2 */}
-              <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-blue-500/30 transition-colors relative overflow-hidden shadow-sm">
-                <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">02</div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-xs font-mono font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider">Expérience Actuelle</h3>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-bold tracking-wider bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 uppercase">Current</span>
+              <ScrollReveal delay={0.2}>
+                <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-blue-500/30 transition-colors relative overflow-hidden shadow-sm">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">02</div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-xs font-mono font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider">Expérience Actuelle</h3>
+                    <span className="px-2 py-0.5 rounded text-[9px] font-bold tracking-wider bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 uppercase">Current</span>
+                  </div>
+                  <p className="text-lg font-semibold text-slate-900 dark:text-gray-100">Développeuse Frontend & UI Designer</p>
                 </div>
-                <p className="text-lg font-semibold text-slate-900 dark:text-gray-100">Développeuse Frontend & UI Designer</p>
-              </div>
+              </ScrollReveal>
 
               {/* Card 3 */}
-              <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-indigo-500/30 transition-colors relative overflow-hidden shadow-sm">
-                <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">03</div>
-                <h3 className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-500 mb-4 uppercase tracking-wider">Langues</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs font-mono font-medium bg-slate-100 dark:bg-black/40 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-md border border-slate-200 dark:border-white/5">[01] Français (Natif)</span>
-                  <span className="text-xs font-mono font-medium bg-slate-100 dark:bg-black/40 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-md border border-slate-200 dark:border-white/5">[02] Anglais (Bilingue)</span>
+              <ScrollReveal delay={0.3}>
+                <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-indigo-500/30 transition-colors relative overflow-hidden shadow-sm">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">03</div>
+                  <h3 className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-500 mb-4 uppercase tracking-wider">Langues</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="text-xs font-mono font-medium bg-slate-100 dark:bg-black/40 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-md border border-slate-200 dark:border-white/5">[01] Français (Natif)</span>
+                    <span className="text-xs font-mono font-medium bg-slate-100 dark:bg-black/40 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-md border border-slate-200 dark:border-white/5">[02] Anglais (Bilingue)</span>
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
           </section>
 
           {/* PROJECTS SECTION */}
           <section id="projects">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-              <div>
-                <span className="text-blue-600 dark:text-blue-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Sélection de Projets</span>
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-xl leading-tight">
-                  Projets à travers plusieurs disciplines.
-                </h2>
+            <ScrollReveal>
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                  <span className="text-blue-600 dark:text-blue-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Sélection de Projets</span>
+                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-xl leading-tight">
+                    Projets à travers plusieurs disciplines.
+                  </h2>
+                </div>
+                <a href="/projects" className="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-lg font-mono text-sm font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors whitespace-nowrap shadow-sm">
+                  VOIR TOUS LES PROJETS &rarr;
+                </a>
               </div>
-              <a href="/projects" className="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-lg font-mono text-sm font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors whitespace-nowrap shadow-sm">
-                VOIR TOUS LES PROJETS &rarr;
-              </a>
-            </div>
+            </ScrollReveal>
             
             {projects.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {projects.slice(0, 3).map((project) => (
-                  <ProjectCard key={project.id} project={project} />
+                {projects.slice(0, 3).map((project, idx) => (
+                  <ScrollReveal key={project.id} delay={idx * 0.1}>
+                    <ProjectCard project={project} />
+                  </ScrollReveal>
                 ))}
               </div>
             ) : (
@@ -173,19 +184,19 @@ export default async function Home() {
 
           {/* JOURNEY / TIMELINE SECTION */}
           <section id="journey">
-             <div className="text-center mb-20">
+             <ScrollReveal className="text-center mb-20">
                 <span className="text-indigo-600 dark:text-indigo-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Parcours</span>
                 <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-2xl mx-auto leading-tight">
                   Progression en développement et IA.
                 </h2>
-            </div>
+            </ScrollReveal>
             
             <div className="relative max-w-3xl mx-auto">
               {/* Vertical Timeline Line */}
               <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-slate-200 dark:bg-white/10 transform md:-translate-x-1/2" />
               
               {/* Timeline Item 1 */}
-              <div className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+              <ScrollReveal delay={0.1} className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
                 <div className="hidden md:block w-5/12 text-right pr-12">
                   <p className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-sm font-bold tracking-wider">2023 — PRESENT</p>
                 </div>
@@ -201,10 +212,10 @@ export default async function Home() {
                   <span className="text-xs font-mono text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-3 block">Expérience</span>
                   <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Création d'applications web sur mesure pour divers clients internationaux. Focus sur la performance et l'accessibilité.</p>
                 </div>
-              </div>
+              </ScrollReveal>
 
               {/* Timeline Item 2 */}
-              <div className="relative flex flex-col md:flex-row items-center justify-between group">
+              <ScrollReveal delay={0.2} className="relative flex flex-col md:flex-row items-center justify-between group">
                 <div className="w-full md:w-5/12 pl-20 md:pl-0 md:text-right md:pr-12 order-2 md:order-1 mt-2 md:mt-0">
                   <p className="text-blue-600 dark:text-blue-500 font-mono text-sm font-bold md:hidden mb-2 tracking-wider">2021 — 2023</p>
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Diplôme en Informatique</h3>
@@ -220,7 +231,7 @@ export default async function Home() {
                 <div className="hidden md:block w-5/12 pl-12 order-3">
                    <p className="text-blue-600 dark:text-blue-500 font-mono text-sm font-bold tracking-wider">2021 — 2023</p>
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
             
             {/* Fallback to display certificates inside journey if there are any */}

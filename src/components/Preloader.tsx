@@ -8,17 +8,46 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    // Phase 1 (Fenêtre IDE) -> Phase 2 (Typing)
-    const t1 = setTimeout(() => setPhase(2), 600);
-    // Phase 2 (Typing) -> Phase 3 (Plein écran)
-    const t2 = setTimeout(() => setPhase(3), 2600);
-    // Phase 3 (Plein écran) -> Fin (Disparition)
-    const t3 = setTimeout(() => setIsFinished(true), 3400);
+    // Phase 1 -> Phase 2 (Typing starts)
+    const t1 = setTimeout(() => setPhase(2), 200);
+    
+    // We want to track the real load time of the window and fonts
+    let isLoaded = false;
+    let minTimePassed = false;
+
+    const checkCompletion = () => {
+      if (isLoaded && minTimePassed) {
+        setPhase(3); // Expand to full screen
+        setTimeout(() => setIsFinished(true), 700);
+      }
+    };
+
+    // 1. Minimum animation time (1500ms for typing to look good)
+    const minTimer = setTimeout(() => {
+      minTimePassed = true;
+      checkCompletion();
+    }, 1500);
+
+    // 2. Real load checking
+    const onRealLoad = async () => {
+      // Attendre que les polices soient prêtes
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+      isLoaded = true;
+      checkCompletion();
+    };
+
+    if (document.readyState === 'complete') {
+      onRealLoad();
+    } else {
+      window.addEventListener('load', onRealLoad);
+    }
 
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+      clearTimeout(minTimer);
+      window.removeEventListener('load', onRealLoad);
     };
   }, []);
 
