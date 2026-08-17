@@ -4,7 +4,9 @@ import ProjectCard from '@/components/ProjectCard';
 import CertificateCard from '@/components/CertificateCard';
 import PreloaderWrapper from '@/components/PreloaderWrapper';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { Briefcase, GraduationCap } from 'lucide-react';
+import { SpotlightCard } from '@/components/SpotlightCard';
+import { MagneticButton } from '@/components/MagneticButton';
+import { Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
 
 export default async function Home() {
   const projects = await getProjects();
@@ -12,24 +14,8 @@ export default async function Home() {
 
   return (
     <PreloaderWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-[#f0f4f8] via-[#e2e8f0] to-[#d9e2ec] text-slate-900 dark:from-[#060C21] dark:via-[#091330] dark:to-[#020510] dark:text-gray-100 font-sans relative selection:bg-fuchsia-500/30 transition-colors duration-500 overflow-hidden">
+      <div className="min-h-screen font-sans relative">
         
-        {/* Ambient Complex Background */}
-        <div className="fixed inset-0 pointer-events-none -z-10">
-          {/* Main Orbs - IT themed (Cyan, Blue, Indigo) */}
-          <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-400/30 dark:bg-blue-600/15 blur-[140px]" />
-          <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-300/40 dark:bg-cyan-800/15 blur-[120px]" />
-          <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] rounded-full bg-indigo-300/30 dark:bg-indigo-900/15 blur-[100px]" />
-          
-          {/* Subtle noise texture */}
-          <div 
-            className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] mix-blend-overlay" 
-            style={{ 
-              backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" 
-            }} 
-          />
-        </div>
-
         {/* HERO SECTION */}
         <section id="about" className="relative z-10 min-h-[100svh] flex flex-col justify-center pt-24 pb-12 border-b border-slate-200 dark:border-white/5">
           <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -38,21 +24,27 @@ export default async function Home() {
             <div className="lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-1000">
               
               {/* Available Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100/50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 mb-8 backdrop-blur-md shadow-sm shadow-emerald-500/5">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 mb-8 backdrop-blur-md shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-[10px] font-bold tracking-[0.2em] text-emerald-700 dark:text-emerald-400 uppercase">Available for work</span>
               </div>
 
               {/* Massive Title */}
-              <h1 className="text-6xl sm:text-7xl lg:text-[140px] font-black tracking-tighter text-slate-900 dark:text-white mb-8 leading-[0.85] uppercase">
+              <h1 className="text-7xl sm:text-8xl lg:text-[160px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-gray-500 mb-6 leading-[0.8] uppercase select-none">
                 MALAK <br/> FARAJ
               </h1>
 
-              {/* Skill Tags */}
-              <div className="flex flex-wrap gap-3 mb-8">
-                <span className="text-xs font-mono font-bold tracking-wider text-fuchsia-700 dark:text-fuchsia-400 bg-fuchsia-100/50 dark:bg-fuchsia-500/10 px-3 py-1.5 rounded border border-fuchsia-200 dark:border-fuchsia-500/20 backdrop-blur-sm">[01] FRONTEND</span>
-                <span className="text-xs font-mono font-bold tracking-wider text-blue-700 dark:text-blue-400 bg-blue-100/50 dark:bg-blue-500/10 px-3 py-1.5 rounded border border-blue-200 dark:border-blue-500/20 backdrop-blur-sm">[02] UX/UI DESIGN</span>
-                <span className="text-xs font-mono font-bold tracking-wider text-indigo-700 dark:text-indigo-400 bg-indigo-100/50 dark:bg-indigo-500/10 px-3 py-1.5 rounded border border-indigo-200 dark:border-indigo-500/20 backdrop-blur-sm">[03] FULLSTACK</span>
+              {/* Skill Tags - Using Spotlight */}
+              <div className="flex flex-wrap gap-3 mb-10">
+                <SpotlightCard className="px-4 py-2" spotlightColor="rgba(59, 130, 246, 0.2)">
+                  <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">FRONTEND</span>
+                </SpotlightCard>
+                <SpotlightCard className="px-4 py-2" spotlightColor="rgba(236, 72, 153, 0.2)">
+                  <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">UX/UI DESIGN</span>
+                </SpotlightCard>
+                <SpotlightCard className="px-4 py-2" spotlightColor="rgba(99, 102, 241, 0.2)">
+                  <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">FULLSTACK</span>
+                </SpotlightCard>
               </div>
 
               {/* Bio */}
@@ -60,13 +52,17 @@ export default async function Home() {
                 Je construis des solutions innovantes à l'intersection du <span className="text-slate-900 dark:text-white font-semibold">développement web</span>, du design interactif et de l'expérience utilisateur.
               </p>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-fuchsia-500 text-white rounded-full font-bold hover:opacity-90 transition-opacity shadow-lg shadow-fuchsia-500/25">
-                  Me Contacter &rarr;
-                </a>
-                <a href="/cv.pdf" className="px-8 py-4 border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/10 transition-colors backdrop-blur-sm">
-                  Ouvrir mon CV
+              {/* CTA Buttons - Magnetic */}
+              <div className="flex flex-wrap gap-6 items-center">
+                <MagneticButton
+                  as="a"
+                  href="#contact" 
+                  className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform"
+                >
+                  Démarrer un projet <ArrowRight className="w-4 h-4 ml-2 inline" />
+                </MagneticButton>
+                <a href="/cv.pdf" className="text-sm font-mono font-bold text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors underline decoration-dashed underline-offset-4 interactive">
+                  Ouvrir le CV
                 </a>
               </div>
             </div>
@@ -116,37 +112,37 @@ export default async function Home() {
             </ScrollReveal>
             
             <div className="flex flex-col gap-6">
-              {/* Card 1 */}
+              {/* Bento Card 1 */}
               <ScrollReveal delay={0.1}>
-                <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-fuchsia-500/30 transition-colors relative overflow-hidden group shadow-sm">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">01</div>
-                  <h3 className="text-xs font-mono font-bold text-fuchsia-600 dark:text-fuchsia-500 mb-2 uppercase tracking-wider">Formation</h3>
-                  <p className="text-lg font-semibold text-slate-900 dark:text-gray-100">Ingénierie Informatique / Développement Web</p>
-                </div>
+                <SpotlightCard className="p-8 h-full">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">01</div>
+                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-2 uppercase tracking-wider">Formation</h3>
+                  <p className="text-xl font-bold text-slate-900 dark:text-white">Ingénierie Informatique / Développement Web</p>
+                </SpotlightCard>
               </ScrollReveal>
 
-              {/* Card 2 */}
+              {/* Bento Card 2 */}
               <ScrollReveal delay={0.2}>
-                <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-blue-500/30 transition-colors relative overflow-hidden shadow-sm">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">02</div>
+                <SpotlightCard className="p-8 h-full" spotlightColor="rgba(59, 130, 246, 0.15)">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">02</div>
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-xs font-mono font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider">Expérience Actuelle</h3>
-                    <span className="px-2 py-0.5 rounded text-[9px] font-bold tracking-wider bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 uppercase">Current</span>
+                    <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">Expérience Actuelle</h3>
+                    <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20">Current</span>
                   </div>
-                  <p className="text-lg font-semibold text-slate-900 dark:text-gray-100">Développeuse Frontend & UI Designer</p>
-                </div>
+                  <p className="text-xl font-bold text-slate-900 dark:text-white">Développeuse Frontend & UI Designer</p>
+                </SpotlightCard>
               </ScrollReveal>
 
-              {/* Card 3 */}
+              {/* Bento Card 3 */}
               <ScrollReveal delay={0.3}>
-                <div className="p-8 bg-white/70 dark:bg-[#0f0f11]/80 border border-slate-200 dark:border-white/5 rounded-2xl backdrop-blur-xl hover:border-indigo-500/30 transition-colors relative overflow-hidden shadow-sm">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs text-slate-400 dark:text-gray-600">03</div>
-                  <h3 className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-500 mb-4 uppercase tracking-wider">Langues</h3>
+                <SpotlightCard className="p-8 h-full" spotlightColor="rgba(236, 72, 153, 0.15)">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">03</div>
+                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-4 uppercase tracking-wider">Langues</h3>
                   <div className="flex flex-wrap gap-2">
-                    <span className="text-xs font-mono font-medium bg-slate-100 dark:bg-black/40 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-md border border-slate-200 dark:border-white/5">[01] Français (Natif)</span>
-                    <span className="text-xs font-mono font-medium bg-slate-100 dark:bg-black/40 text-slate-700 dark:text-gray-300 px-3 py-1.5 rounded-md border border-slate-200 dark:border-white/5">[02] Anglais (Bilingue)</span>
+                    <span className="text-xs font-mono font-bold bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10">Français (Natif)</span>
+                    <span className="text-xs font-mono font-bold bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10">Anglais (Bilingue)</span>
                   </div>
-                </div>
+                </SpotlightCard>
               </ScrollReveal>
             </div>
           </section>

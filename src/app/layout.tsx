@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
+import { CustomCursor } from "@/components/CustomCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +27,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-transparent text-slate-900 dark:text-gray-100 transition-colors duration-500 overflow-x-hidden selection:bg-fuchsia-500/30">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {/* Ambient Complex Background - Global */}
+          <div className="fixed inset-0 pointer-events-none -z-50 bg-gradient-to-br from-[#e0f2fe] via-[#bae6fd] to-[#e0e7ff] dark:from-[#060C21] dark:via-[#091330] dark:to-[#020510] transition-colors duration-500">
+            {/* Main Orbs - IT themed (Cyan, Blue, Indigo) */}
+            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-300/40 dark:bg-blue-600/15 blur-[140px] mix-blend-multiply dark:mix-blend-normal" />
+            <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-200/50 dark:bg-cyan-800/15 blur-[120px] mix-blend-multiply dark:mix-blend-normal" />
+            <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] rounded-full bg-indigo-200/40 dark:bg-indigo-900/15 blur-[100px] mix-blend-multiply dark:mix-blend-normal" />
+            
+            {/* Subtle noise texture */}
+            <div 
+              className="absolute inset-0 opacity-[0.05] mix-blend-overlay" 
+              style={{ 
+                backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" 
+              }} 
+            />
+          </div>
+
+          <CustomCursor />
           <Navbar />
           {children}
         </ThemeProvider>
