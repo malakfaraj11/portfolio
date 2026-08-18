@@ -88,7 +88,7 @@ export default async function Home() {
             <div className="lg:col-span-5 relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 hidden lg:block">
               <ScrollReveal delay={0.2} className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 group">
                 {currentProfile.photoUrl ? (
-                  <img src={currentProfile.photoUrl} alt="Portrait" className="absolute inset-0 w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
+                  <img src={currentProfile.photoUrl} alt="Portrait" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 hover:scale-105" />
                 ) : (
                   <div className="absolute inset-0 bg-slate-900 dark:bg-black/80" />
                 )}
