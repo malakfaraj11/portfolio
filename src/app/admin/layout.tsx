@@ -42,10 +42,22 @@ export default function AdminLayout({
         <div className="p-6 border-t border-slate-200 dark:border-white/5">
           <Link
             href="/"
-            className="text-xs font-mono tracking-widest text-blue-600 dark:text-blue-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 block mb-2 transition-colors"
+            className="text-xs font-mono tracking-widest text-blue-600 dark:text-blue-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 block mb-6 transition-colors"
           >
             &larr; RETOUR PUBLIC
           </Link>
+          <form action={async () => {
+            'use server';
+            const { logout } = await import('@/actions/auth');
+            await logout();
+          }}>
+            <button 
+              type="submit"
+              className="w-full py-2 px-4 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 text-sm font-bold hover:bg-red-500/20 transition-colors border border-red-500/20"
+            >
+              Déconnexion
+            </button>
+          </form>
         </div>
       </aside>
 
