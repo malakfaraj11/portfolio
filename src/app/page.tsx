@@ -18,7 +18,9 @@ export default async function Home() {
     status: 'Available for work',
     location: 'Paris, FR',
     visionTitle: 'Ma Vision',
-    visionText: 'Mon travail connecte les besoins métiers, l\'expérience utilisateur intuitive et les architectures front-end modernes de haute performance.'
+    visionText: 'Mon travail connecte les besoins métiers, l\'expérience utilisateur intuitive et les architectures front-end modernes de haute performance.',
+    photoUrl: null,
+    cvUrl: null,
   };
 
   const currentProfile = profile || defaultProfile;
