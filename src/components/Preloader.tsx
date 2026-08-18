@@ -24,23 +24,25 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       onRealLoad();
     }
 
-    const duration = 2500; // Minimum 2.5 seconds pour admirer le loader
+    let localProgress = 0;
 
     const animate = (time: number) => {
       let elapsed = time - start;
       let targetProgress = 0;
       
       if (isLoaded) {
-         // Smoothly reach 100 over exactly 'duration'
-         targetProgress = Math.min((elapsed / duration) * 100, 100);
+         // Si c'est chargé, on accélère fortement pour finir vite de manière dynamique
+         targetProgress = localProgress + (100 - localProgress) * 0.15 + 2;
       } else {
-         // If not loaded, don't exceed 95%
-         targetProgress = Math.min((elapsed / duration) * 100, 95);
+         // Si ça charge encore, on avance vers 90%
+         targetProgress = 90 * (1 - Math.exp(-elapsed / 2000));
       }
+
+      localProgress = targetProgress;
 
       if (targetProgress >= 100) {
          setProgress(100);
-         setTimeout(() => setIsFinished(true), 400); // Petite pause magique à 100%
+         setTimeout(() => setIsFinished(true), 200); // Petite pause magique à 100%
       } else {
          setProgress(targetProgress);
          animationFrameId = requestAnimationFrame(animate);
@@ -84,45 +86,65 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-fuchsia-600/10 rounded-full blur-[100px]" />
           
           <div className="relative z-10 flex flex-col items-center">
-            {/* Percentage */}
-            <div className="overflow-hidden mb-2">
-              <motion.div 
-                initial={{ y: 100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-                className="text-7xl md:text-9xl font-black text-white tracking-tighter"
-              >
-                {Math.floor(progress)}<span className="text-3xl md:text-5xl text-fuchsia-500 ml-2">%</span>
-              </motion.div>
-            </div>
-            
-            {/* Elegant Progress Line */}
-            <motion.div 
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
-              className="w-64 md:w-96 h-[2px] bg-white/10 rounded-full overflow-hidden mt-6 mb-8 relative"
-            >
-              <div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-fuchsia-500 to-purple-500 shadow-[0_0_15px_rgba(217,70,239,0.6)]"
-                style={{ width: `${progress}%` }}
-              />
-            </motion.div>
+            {/* Creative Circular Percentage */}
+            <div className="relative flex flex-col items-center justify-center w-64 h-64 md:w-80 md:h-80 mb-8">
+              {/* Outer Glow */}
+              <div className="absolute inset-0 rounded-full bg-fuchsia-500/5 blur-[50px] animate-pulse" />
+              
+              <svg className="absolute inset-0 w-full h-full -rotate-90 drop-shadow-[0_0_15px_rgba(217,70,239,0.3)]" viewBox="0 0 100 100">
+                {/* Background Circle */}
+                <circle cx="50" cy="50" r="46" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" fill="none" />
+                
+                {/* Animated Progress Circle */}
+                <motion.circle 
+                  cx="50" cy="50" r="46" 
+                  stroke="url(#loaderGradient)" 
+                  strokeWidth="2.5" 
+                  fill="none" 
+                  strokeDasharray="289.02" // 2 * PI * 46
+                  strokeDashoffset={289.02 - (289.02 * progress) / 100}
+                  strokeLinecap="round"
+                />
+                
+                <defs>
+                  <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#d946ef" />
+                    <stop offset="50%" stopColor="#a855f7" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                </defs>
+              </svg>
 
-            {/* Dynamic Status Text */}
-            <div className="h-6 overflow-hidden">
-              <AnimatePresence mode="popLayout">
-                <motion.div
-                  key={getMessage()}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-white/50 uppercase font-bold"
+              {/* Number inside */}
+              <div className="relative flex flex-col items-center">
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="flex items-start"
                 >
-                  {getMessage()}
+                  <span className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter tabular-nums">
+                    {Math.floor(progress)}
+                  </span>
+                  <span className="text-2xl md:text-4xl text-fuchsia-500 font-black mt-2 md:mt-3">%</span>
                 </motion.div>
-              </AnimatePresence>
+                
+                {/* Dynamic Status Text inside circle */}
+                <div className="h-4 overflow-hidden mt-2">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={getMessage()}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -20, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-[9px] md:text-[10px] font-mono tracking-[0.4em] text-fuchsia-300/70 uppercase font-bold text-center"
+                    >
+                      {getMessage()}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
