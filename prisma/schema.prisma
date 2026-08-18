@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  tagline     String   // ex: "Creative Developer & UI Engineer"
+  bio         String   @db.Text
+  status      String   // ex: "Disponible pour des missions"
+  location    String   // ex: "Paris, FR"
+  visionTitle String   // ex: "Ma Vision"
+  visionText  String   @db.Text
+  metrics     Metric[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Metric {
+  id        String   @id @default(cuid())
+  label     String   // ex: "Années d'expérience"
+  value     String   // ex: "3+"
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String   // ex: "React"
+  category  String   // ex: "Frontend", "Design", "Backend"
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Experience {
+  id          String   @id @default(cuid())
+  role        String   // ex: "Développeuse Web Freelance"
+  company     String   // ex: "Indépendante"
+  startDate   String   // ex: "2023"
+  endDate     String   // ex: "PRESENT"
+  description String   @db.Text
+  techStack   String[] // ex: ["Next.js", "Tailwind"]
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  imageUrl    String?
+  linkUrl     String?
+  githubUrl   String?
+  tags        String[]
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
