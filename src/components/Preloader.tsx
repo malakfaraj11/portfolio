@@ -4,50 +4,53 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Phase 1 -> Phase 2 (Typing starts)
-    const t1 = setTimeout(() => setPhase(2), 200);
-    
-    // We want to track the real load time of the window and fonts
-    let isLoaded = false;
-    let minTimePassed = false;
+    let start = performance.now();
+    let isLoaded = document.readyState === 'complete';
+    let animationFrameId: number;
 
-    const checkCompletion = () => {
-      if (isLoaded && minTimePassed) {
-        setPhase(3); // Expand to full screen
-        setTimeout(() => setIsFinished(true), 700);
-      }
-    };
-
-    // 1. Minimum animation time (1500ms for typing to look good)
-    const minTimer = setTimeout(() => {
-      minTimePassed = true;
-      checkCompletion();
-    }, 1500);
-
-    // 2. Real load checking
     const onRealLoad = async () => {
-      // Attendre que les polices soient prêtes
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
       isLoaded = true;
-      checkCompletion();
     };
-
-    if (document.readyState === 'complete') {
-      onRealLoad();
-    } else {
+    if (!isLoaded) {
       window.addEventListener('load', onRealLoad);
+    } else {
+      onRealLoad();
     }
 
+    const duration = 2500; // Minimum 2.5 seconds pour admirer le loader
+
+    const animate = (time: number) => {
+      let elapsed = time - start;
+      let targetProgress = 0;
+      
+      if (isLoaded) {
+         // Smoothly reach 100 over exactly 'duration'
+         targetProgress = Math.min((elapsed / duration) * 100, 100);
+      } else {
+         // If not loaded, don't exceed 95%
+         targetProgress = Math.min((elapsed / duration) * 100, 95);
+      }
+
+      if (targetProgress >= 100) {
+         setProgress(100);
+         setTimeout(() => setIsFinished(true), 400); // Petite pause magique à 100%
+      } else {
+         setProgress(targetProgress);
+         animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+    animationFrameId = requestAnimationFrame(animate);
+
     return () => {
-      clearTimeout(t1);
-      clearTimeout(minTimer);
       window.removeEventListener('load', onRealLoad);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -55,85 +58,73 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     if (isFinished) {
       const t = setTimeout(() => {
         onComplete();
-      }, 800); // Laisse le temps au fade-out
+      }, 1000); // Temps pour l'animation de sortie
       return () => clearTimeout(t);
     }
   }, [isFinished, onComplete]);
+
+  // Messages changeant selon le progrès
+  const getMessage = () => {
+    if (progress < 30) return "INITIALISATION...";
+    if (progress < 60) return "CHARGEMENT DES RESSOURCES";
+    if (progress < 90) return "PRÉPARATION DU PORTFOLIO";
+    return "PRÊT";
+  };
 
   return (
     <AnimatePresence mode="wait">
       {!isFinished && (
         <motion.div
-          key="preloader-bg"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          key="preloader"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505] overflow-hidden"
+          exit={{ y: "-100%", opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
-          <motion.div
-            layout
-            initial={{ scale: 0.8, opacity: 0, borderRadius: "12px", width: "90%", maxWidth: "600px", height: "auto" }}
-            animate={
-              phase === 3
-                ? { scale: 1, opacity: 1, borderRadius: "0px", width: "100vw", height: "100vh", maxWidth: "100vw" }
-                : { scale: 1, opacity: 1, borderRadius: "12px", width: "90%", maxWidth: "600px", height: "200px" }
-            }
-            transition={{
-              duration: phase === 3 ? 0.7 : 0.5,
-              ease: [0.76, 0, 0.24, 1]
-            }}
-            className="bg-[#0D1117] border border-gray-800 shadow-2xl shadow-blue-900/20 flex flex-col overflow-hidden"
-          >
-            {/* Window Header (Mac OS style) */}
+          {/* Background subtle glowing orb */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-fuchsia-600/10 rounded-full blur-[100px]" />
+          
+          <div className="relative z-10 flex flex-col items-center">
+            {/* Percentage */}
+            <div className="overflow-hidden mb-2">
+              <motion.div 
+                initial={{ y: 100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+                className="text-7xl md:text-9xl font-black text-white tracking-tighter"
+              >
+                {Math.floor(progress)}<span className="text-3xl md:text-5xl text-fuchsia-500 ml-2">%</span>
+              </motion.div>
+            </div>
+            
+            {/* Elegant Progress Line */}
             <motion.div 
-              className="flex items-center gap-2 px-4 py-3 bg-[#161B22] border-b border-gray-800"
-              animate={phase === 3 ? { opacity: 0, height: 0, padding: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.3 }}
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
+              className="w-64 md:w-96 h-[2px] bg-white/10 rounded-full overflow-hidden mt-6 mb-8 relative"
             >
-              <div className="w-3 h-3 rounded-full bg-red-500/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <div className="w-3 h-3 rounded-full bg-green-500/80" />
-              <div className="ml-auto flex items-center text-xs text-gray-500 font-mono">
-                portfolio.tsx
-              </div>
+              <div 
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-fuchsia-500 to-purple-500 shadow-[0_0_15px_rgba(217,70,239,0.6)]"
+                style={{ width: `${progress}%` }}
+              />
             </motion.div>
 
-            {/* Window Body (Code) */}
-            <div className="flex-1 p-6 font-mono text-sm md:text-base flex items-center">
-              {phase >= 2 && (
+            {/* Dynamic Status Text */}
+            <div className="h-6 overflow-hidden">
+              <AnimatePresence mode="popLayout">
                 <motion.div
-                  initial={{ clipPath: "inset(0 100% 0 0)" }}
-                  animate={phase === 3 ? { opacity: 0 } : { clipPath: "inset(0 0 0 0)" }}
-                  transition={{ 
-                    clipPath: { duration: 1.5, ease: "linear" },
-                    opacity: { duration: 0.3 }
-                  }}
-                  className="whitespace-nowrap relative pr-2"
+                  key={getMessage()}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-white/50 uppercase font-bold"
                 >
-                  <span className="text-gray-400">{'<'}</span>
-                  <span className="text-blue-400 font-medium">Portfolio</span>
-                  <span className="text-gray-200"> </span>
-                  <span className="text-cyan-300">developer</span>
-                  <span className="text-gray-400">=</span>
-                  <span className="text-orange-300">"Malak"</span>
-                  <span className="text-gray-200"> </span>
-                  <span className="text-cyan-300">status</span>
-                  <span className="text-gray-400">=</span>
-                  <span className="text-orange-300">"Ready"</span>
-                  <span className="text-gray-200"> </span>
-                  <span className="text-gray-400">{'/>'}</span>
-                  
-                  {/* Cursor */}
-                  {phase === 2 && (
-                    <motion.span
-                      animate={{ opacity: [1, 0] }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                      className="absolute right-0 top-0 bottom-0 w-[2px] bg-blue-400"
-                    />
-                  )}
+                  {getMessage()}
                 </motion.div>
-              )}
+              </AnimatePresence>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
