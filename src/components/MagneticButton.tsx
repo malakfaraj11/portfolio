@@ -8,6 +8,8 @@ interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   className?: string;
   as?: any;
   href?: string;
+  target?: string;
+  rel?: string;
 }
 
 export function MagneticButton({ children, className = "", as: Component = "button", ...props }: MagneticButtonProps) {

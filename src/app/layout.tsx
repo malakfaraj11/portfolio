@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { CustomCursor } from "@/components/CustomCursor";
+import { NoiseOverlay } from "@/components/NoiseOverlay";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-transparent text-slate-900 dark:text-gray-100 transition-colors duration-500 overflow-x-hidden selection:bg-fuchsia-500/30">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <NoiseOverlay />
           {/* Ambient Complex Background - Global */}
           <div className="fixed inset-0 pointer-events-none -z-50 bg-gradient-to-br from-[#e0f2fe] via-[#bae6fd] to-[#e0e7ff] dark:from-[#060C21] dark:via-[#091330] dark:to-[#020510] transition-colors duration-500">
             {/* Main Orbs - IT themed (Cyan, Blue, Indigo) */}
