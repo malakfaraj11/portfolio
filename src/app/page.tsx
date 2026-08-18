@@ -3,13 +3,14 @@ import { ScrollReveal } from '@/components/ScrollReveal';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { MagneticButton } from '@/components/MagneticButton';
 import { Briefcase, GraduationCap, ArrowRight, Code2 } from 'lucide-react';
+import Link from 'next/link';
 import prisma from '@/lib/prisma';
 
 export default async function Home() {
   const profile = await prisma.profile.findFirst({ include: { metrics: true } });
   const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
   const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } });
-  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } });
+  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' }, take: 3 });
 
   // Default values if DB is empty
   const defaultProfile = {
@@ -210,62 +211,12 @@ export default async function Home() {
                       <h4 className="text-sm font-mono text-slate-500 mb-4">{project.subtitleFr}</h4>
                       <p className="text-slate-600 dark:text-gray-400 mb-6 flex-grow">{project.resumeFr}</p>
                       
-                      <details className="mt-4 border-t border-slate-200 dark:border-white/10 pt-4 group/details">
-                        <summary className="text-sm font-bold text-blue-600 dark:text-blue-400 cursor-pointer list-none flex items-center gap-2">
-                          Voir les détails <span className="group-open/details:rotate-180 transition-transform text-xs">▼</span>
-                        </summary>
-                        <div className="mt-4 space-y-4 text-sm text-slate-600 dark:text-gray-400 animate-in fade-in slide-in-from-top-2">
-                          {project.problemFr && (
-                            <div>
-                              <strong className="text-slate-900 dark:text-white block mb-1">Le Problème :</strong>
-                              <p>{project.problemFr}</p>
-                            </div>
-                          )}
-                          {project.goalsFr && project.goalsFr.length > 0 && (
-                            <div>
-                              <strong className="text-slate-900 dark:text-white block mb-1">Objectifs :</strong>
-                              <ul className="list-disc pl-4 space-y-1">
-                                {project.goalsFr.map((g, i) => <li key={i}>{g}</li>)}
-                              </ul>
-                            </div>
-                          )}
-                          {project.solutionFr && (
-                            <div>
-                              <strong className="text-slate-900 dark:text-white block mb-1">La Solution :</strong>
-                              <p>{project.solutionFr}</p>
-                            </div>
-                          )}
-                          {project.archFr && project.archFr.length > 0 && (
-                            <div>
-                              <strong className="text-slate-900 dark:text-white block mb-1">Architecture Technique :</strong>
-                              <ul className="list-disc pl-4 space-y-1">
-                                {project.archFr.map((a, i) => <li key={i}>{a}</li>)}
-                              </ul>
-                            </div>
-                          )}
-                          {project.resultsFr && project.resultsFr.length > 0 && (
-                            <div>
-                              <strong className="text-slate-900 dark:text-white block mb-1">Résultats :</strong>
-                              <ul className="list-disc pl-4 space-y-1">
-                                {project.resultsFr.map((r, i) => <li key={i}>{r}</li>)}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          <div className="flex gap-4 pt-6 border-t border-slate-200 dark:border-white/10 mt-6">
-                            {project.linkUrl && (
-                              <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-mono font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 transition-colors bg-fuchsia-50 dark:bg-fuchsia-500/10 px-4 py-2 rounded-full">
-                                Visiter le site <ArrowRight className="w-3 h-3" />
-                              </a>
-                            )}
-                            {project.githubUrl && (
-                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors bg-slate-100 dark:bg-white/5 px-4 py-2 rounded-full">
-                                Code Source (GitHub)
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </details>
+                      <div className="mt-4 pt-6 border-t border-slate-200 dark:border-white/10 flex justify-between items-center">
+                        <Link href={`/projects/${project.id}`} className="text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 flex items-center gap-2 group/link interactive">
+                          Voir les détails
+                          <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
                     </SpotlightCard>
                   </div>
                 </ScrollReveal>
@@ -274,6 +225,12 @@ export default async function Home() {
                   [AUCUN PROJET - AJOUTEZ-EN DEPUIS L'ADMIN]
                 </div>
               )}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <Link href="/projects" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">
+                Voir tous les projets <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </section>
 
