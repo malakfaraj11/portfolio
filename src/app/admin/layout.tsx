@@ -14,38 +14,38 @@ export default function AdminLayout({
         </div>
         <nav className="flex-1 mt-6 px-4 space-y-2">
           <Link
+            href="/admin"
+            className="block px-4 py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
+          >
+            Profil & Vision
+          </Link>
+          <Link
+            href="/admin/skills"
+            className="block px-4 py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
+          >
+            Écosystème (Stack)
+          </Link>
+          <Link
+            href="/admin/experience"
+            className="block px-4 py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
+          >
+            Parcours
+          </Link>
+          <Link
             href="/admin/projects"
             className="block px-4 py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
           >
             Projets
-          </Link>
-          <Link
-            href="/admin/certificates"
-            className="block px-4 py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
-          >
-            Certifications
           </Link>
         </nav>
         
         <div className="p-6 border-t border-slate-200 dark:border-white/5">
           <Link
             href="/"
-            className="text-xs font-mono tracking-widest text-blue-600 dark:text-blue-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 block mb-6 transition-colors"
+            className="text-xs font-mono tracking-widest text-blue-600 dark:text-blue-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 block mb-2 transition-colors"
           >
             &larr; RETOUR PUBLIC
           </Link>
-          <form action={async () => {
-            'use server';
-            const { logout } = await import('@/actions/auth');
-            await logout();
-          }}>
-            <button 
-              type="submit"
-              className="w-full py-2 px-4 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 text-sm font-bold hover:bg-red-500/20 transition-colors border border-red-500/20"
-            >
-              Déconnexion
-            </button>
-          </form>
         </div>
       </aside>
 

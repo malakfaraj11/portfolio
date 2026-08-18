@@ -1,71 +1,65 @@
-import { getProjects, deleteProject } from '@/actions/projects';
-import Link from 'next/link';
-import DeleteButton from '@/components/DeleteButton';
+import { getProjects, createProject, deleteProject } from '@/actions/content';
 
 export default async function AdminProjectsPage() {
   const projects = await getProjects();
 
+  async function handleCreate(formData: FormData) {
+    'use server';
+    const tags = formData.get('tags')?.toString().split(',').map((t) => t.trim()) || [];
+
+    await createProject({
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      imageUrl: formData.get('imageUrl') as string,
+      linkUrl: formData.get('linkUrl') as string,
+      githubUrl: formData.get('githubUrl') as string,
+      tags,
+    });
+  }
+
+  async function handleDelete(formData: FormData) {
+    'use server';
+    await deleteProject(formData.get('id') as string);
+  }
+
   return (
     <div>
-      <div className="flex justify-between items-center mb-10">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-fuchsia-500 bg-clip-text text-transparent">Gérer les Projets</h1>
-        <Link
-          href="/admin/projects/new"
-          className="bg-slate-900 dark:bg-white text-white dark:text-black font-bold px-6 py-3 rounded-full hover:bg-fuchsia-500 dark:hover:bg-fuchsia-400 hover:text-white transition-all shadow-lg"
-        >
-          + Nouveau Projet
-        </Link>
+      <h1 className="text-3xl font-black mb-8 dark:text-white">Projets</h1>
+
+      <div className="bg-white dark:bg-[#151518] p-8 rounded-xl border border-slate-200 dark:border-white/10 mb-8">
+        <h2 className="text-xl font-bold mb-4 dark:text-white">Nouveau Projet</h2>
+        <form action={handleCreate} className="space-y-4">
+          <input type="text" name="title" placeholder="Titre du projet" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-slate-900 dark:text-white" />
+          <textarea name="description" placeholder="Description courte" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-slate-900 dark:text-white h-24" />
+          <input type="text" name="imageUrl" placeholder="URL de l'image (ex: /projects/1.jpg)" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-slate-900 dark:text-white" />
+          <input type="text" name="tags" placeholder="Tags séparés par des virgules (ex: React, Node.js)" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-slate-900 dark:text-white" />
+          
+          <div className="grid grid-cols-2 gap-4">
+            <input type="text" name="linkUrl" placeholder="Lien Live (Live URL)" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-slate-900 dark:text-white" />
+            <input type="text" name="githubUrl" placeholder="Lien GitHub" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-slate-900 dark:text-white" />
+          </div>
+
+          <button type="submit" className="w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-3 rounded-lg transition-colors">
+            Ajouter le projet
+          </button>
+        </form>
       </div>
 
-      <div className="bg-white/70 dark:bg-[#0f0f11]/80 backdrop-blur-xl border border-slate-200 dark:border-white/5 rounded-2xl shadow-xl overflow-hidden">
-        <table className="min-w-full divide-y divide-slate-200 dark:divide-white/10">
-          <thead className="bg-slate-50/50 dark:bg-black/20">
-            <tr>
-              <th className="px-6 py-4 text-left text-xs font-mono font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest">
-                Titre
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-mono font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest">
-                Date
-              </th>
-              <th className="px-6 py-4 text-right text-xs font-mono font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-200 dark:divide-white/5">
-            {projects.map((project) => (
-              <tr key={project.id} className="hover:bg-white/50 dark:hover:bg-white/5 transition-colors">
-                <td className="px-6 py-5 whitespace-nowrap">
-                  <div className="text-sm font-bold text-slate-900 dark:text-white">{project.title}</div>
-                </td>
-                <td className="px-6 py-5 whitespace-nowrap">
-                  <div className="text-sm font-mono text-slate-500 dark:text-gray-400">
-                    {new Date(project.created_at).toLocaleDateString('fr-FR')}
-                  </div>
-                </td>
-                <td className="px-6 py-5 whitespace-nowrap text-right text-sm font-bold">
-                  <Link
-                    href={`/admin/projects/${project.id}/edit`}
-                    className="text-blue-600 dark:text-blue-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 mr-6 transition-colors"
-                  >
-                    Modifier
-                  </Link>
-                  <DeleteButton 
-                    action={deleteProject.bind(null, project.id)} 
-                    itemType="projet" 
-                  />
-                </td>
-              </tr>
-            ))}
-            {projects.length === 0 && (
-              <tr>
-                <td colSpan={3} className="px-6 py-12 text-center font-mono text-slate-500 dark:text-gray-500">
-                  Aucun projet trouvé.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className="space-y-4">
+        {projects.map((project) => (
+          <div key={project.id} className="bg-white dark:bg-[#151518] p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-lg dark:text-white">{project.title}</h3>
+              <p className="text-sm text-slate-500 dark:text-gray-400">{project.tags.join(', ')}</p>
+            </div>
+            <form action={handleDelete}>
+              <input type="hidden" name="id" value={project.id} />
+              <button type="submit" className="text-red-500 hover:text-red-600 font-bold px-4 py-2 bg-red-50 dark:bg-red-500/10 rounded-lg">
+                Supprimer
+              </button>
+            </form>
+          </div>
+        ))}
       </div>
     </div>
   );
