@@ -102,23 +102,24 @@ export default async function Home() {
         <main className="max-w-6xl mx-auto px-6 py-24 space-y-32 relative z-10">
           
           {/* AT A GLANCE SECTION */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div className="lg:col-span-4 sticky top-32">
+          <section className="flex flex-col items-center gap-12">
+            <div className="max-w-3xl text-center">
               <ScrollReveal>
-                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6">
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">
                   {currentProfile.visionTitle}
                 </h2>
-                <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed mb-8">
+                <p className="text-lg md:text-xl text-slate-600 dark:text-gray-400 leading-relaxed mb-8 mx-auto">
                   {currentProfile.visionText}
                 </p>
-                <div className="flex items-center gap-4 text-sm font-bold text-slate-900 dark:text-white">
+                <div className="flex items-center justify-center gap-4 text-sm font-bold text-slate-900 dark:text-white">
                   <div className="w-12 h-[1px] bg-fuchsia-500" />
                   Localisation : {currentProfile.location}
+                  <div className="w-12 h-[1px] bg-fuchsia-500" />
                 </div>
               </ScrollReveal>
             </div>
             
-            <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto">
               {/* Bento Card 1: Technologies / Skills */}
               <ScrollReveal delay={0.1}>
                 <SpotlightCard className="p-8 h-full">
@@ -143,7 +144,7 @@ export default async function Home() {
                     <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">Expérience Actuelle</h3>
                     <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20">Current</span>
                   </div>
-                  <p className="text-xl font-bold text-slate-900 dark:text-white">
+                  <p className="text-xl font-bold text-slate-900 dark:text-white mt-4">
                     {experiences.length > 0 ? `${experiences[0].role} @ ${experiences[0].company}` : 'Développeur Indépendant'}
                   </p>
                 </SpotlightCard>
