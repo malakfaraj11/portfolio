@@ -154,7 +154,7 @@ export default async function Home() {
                     <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20">Current</span>
                   </div>
                   <p className="text-xl font-bold text-slate-900 dark:text-white mt-4">
-                    {experiences.length > 0 ? `${experiences[0].role} @ ${experiences[0].company}` : 'Développeur Indépendant'}
+                    {experiences.length > 0 ? `${experiences[0].titleFr} (${experiences[0].type})` : 'Développeur Indépendant'}
                   </p>
                 </SpotlightCard>
               </ScrollReveal>
@@ -287,30 +287,31 @@ export default async function Home() {
             </ScrollReveal>
             
             <div className="max-w-3xl mx-auto space-y-12">
-              {experiences.length > 0 ? experiences.map((exp, idx) => (
-                <ScrollReveal key={exp.id} delay={idx * 0.1} className="relative pl-8 md:pl-0">
-                  <div className="md:grid md:grid-cols-5 md:gap-8 items-start">
-                    <div className="hidden md:block col-span-1 pt-1 text-right">
-                      <span className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 tracking-widest">{exp.startDate} &mdash; {exp.endDate}</span>
-                    </div>
-                    <div className="col-span-4 relative">
-                      <div className="absolute -left-[41px] md:-left-12 top-1.5 w-4 h-4 rounded-full bg-white dark:bg-[#0f0f11] border-4 border-fuchsia-500 z-10 shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{exp.role}</h3>
-                      <h4 className="text-fuchsia-600 dark:text-fuchsia-400 font-mono text-sm tracking-wider uppercase mb-4">{exp.company}</h4>
-                      <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-4">
-                        {exp.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.techStack.map(tech => (
-                          <span key={tech} className="text-[10px] font-mono border border-slate-200 dark:border-white/10 px-2 py-1 rounded text-slate-500 dark:text-gray-500">
-                            {tech}
-                          </span>
-                        ))}
+              {experiences.length > 0 ? experiences.map((exp, idx) => {
+                const now = new Date();
+                const isCurrent = !exp.endDate || exp.endDate > now;
+                return (
+                  <ScrollReveal key={exp.id} delay={idx * 0.1} className="relative pl-8 md:pl-0">
+                    <div className="md:grid md:grid-cols-5 md:gap-8 items-start">
+                      <div className="hidden md:block col-span-1 pt-1 text-right">
+                        <span className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 tracking-widest">
+                          {exp.startDate.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })} 
+                          &mdash; 
+                          {isCurrent ? 'En cours' : exp.endDate?.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
+                        </span>
+                      </div>
+                      <div className="col-span-4 relative">
+                        <div className={`absolute -left-[41px] md:-left-12 top-1.5 w-4 h-4 rounded-full bg-white dark:bg-[#0f0f11] border-4 z-10 ${isCurrent ? 'border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]' : 'border-fuchsia-500 shadow-[0_0_15px_rgba(217,70,239,0.5)]'}`} />
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{exp.titleFr}</h3>
+                        <h4 className="text-fuchsia-600 dark:text-fuchsia-400 font-mono text-sm tracking-wider uppercase mb-4">{exp.type}</h4>
+                        <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-4">
+                          {exp.descFr}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </ScrollReveal>
-              )) : (
+                  </ScrollReveal>
+                );
+              }) : (
                 <div className="text-center text-slate-500 font-mono py-10">
                   [AUCUNE EXPÉRIENCE - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
                 </div>

@@ -41,16 +41,17 @@ model Skill {
 }
 
 model Experience {
-  id          String   @id @default(cuid())
-  role        String   // ex: "Développeuse Web Freelance"
-  company     String   // ex: "Indépendante"
-  startDate   String   // ex: "2023"
-  endDate     String   // ex: "PRESENT"
-  description String   @db.Text
-  techStack   String[] // ex: ["Next.js", "Tailwind"]
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          String    @id @default(cuid())
+  type        String    // ex: "Expérience", "Organisation"
+  titleFr     String
+  titleEn     String
+  descFr      String?   @db.Text
+  descEn      String?   @db.Text
+  startDate   DateTime
+  endDate     DateTime? // null or future date = "En cours"
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Project {

@@ -7,12 +7,13 @@ export default async function AdminExperiencePage() {
   async function handleCreate(formData: FormData) {
     'use server';
     await createExperience({
-      role: formData.get('role') as string,
-      company: formData.get('company') as string,
-      startDate: formData.get('startDate') as string,
-      endDate: formData.get('endDate') as string,
-      description: formData.get('description') as string,
-      techStack: (formData.get('techStack') as string).split(',').map(t => t.trim()).filter(Boolean),
+      type: formData.get('type') as string,
+      titleFr: formData.get('titleFr') as string,
+      titleEn: formData.get('titleEn') as string,
+      descFr: formData.get('descFr') as string || null,
+      descEn: formData.get('descEn') as string || null,
+      startDate: new Date(formData.get('startDate') as string),
+      endDate: formData.get('endDate') ? new Date(formData.get('endDate') as string) : null,
     });
   }
 
@@ -29,31 +30,40 @@ export default async function AdminExperiencePage() {
         <form action={handleCreate} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Rôle / Poste</label>
-              <input type="text" name="role" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Type *</label>
+              <select name="type" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none">
+                <option value="Expérience">Expérience</option>
+                <option value="Organisation">Organisation</option>
+                <option value="Formation">Formation</option>
+              </select>
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Entreprise</label>
-              <input type="text" name="company" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre FR *</label>
+              <input type="text" name="titleFr" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de début (ex: Jan 2022)</label>
-              <input type="text" name="startDate" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre EN *</label>
+              <input type="text" name="titleEn" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de fin (ex: Présent)</label>
-              <input type="text" name="endDate" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de début * (jj/mm/aaaa)</label>
+              <input type="date" name="startDate" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de fin prévue ou effective (jj/mm/aaaa) (Laisser vide si en cours)</label>
+              <input type="date" name="endDate" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
           </div>
           
-          <div>
-            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description</label>
-            <textarea name="description" required rows={4} className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Technologies (séparées par des virgules)</label>
-            <input type="text" name="techStack" placeholder="React, Node.js, TypeScript" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description FR</label>
+              <textarea name="descFr" rows={4} className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description EN</label>
+              <textarea name="descEn" rows={4} className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
+            </div>
           </div>
 
           <div className="flex justify-end">
@@ -73,20 +83,15 @@ export default async function AdminExperiencePage() {
           <div key={exp.id} className="bg-white dark:bg-[#151518] p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-between items-start group">
             <div className="flex-1 pr-6">
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="font-bold text-xl dark:text-white">{exp.role}</h3>
+                <h3 className="font-bold text-xl dark:text-white">{exp.titleFr}</h3>
                 <span className="text-xs font-mono font-bold text-blue-500 uppercase tracking-wider bg-blue-500/10 px-2 py-1 rounded">
-                  {exp.company}
+                  {exp.type}
                 </span>
               </div>
-              <p className="text-xs font-mono text-slate-400 mb-3">{exp.startDate} - {exp.endDate}</p>
-              <p className="text-sm text-slate-600 dark:text-gray-400 mb-3 line-clamp-2">{exp.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {exp.techStack.map(tech => (
-                  <span key={tech} className="text-[10px] font-mono border border-slate-200 dark:border-white/10 px-2 py-1 rounded text-slate-500 dark:text-gray-500">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+              <p className="text-xs font-mono text-slate-400 mb-3">
+                {exp.startDate.toLocaleDateString('fr-FR')} - {(!exp.endDate || exp.endDate > new Date()) ? 'En cours' : exp.endDate.toLocaleDateString('fr-FR')}
+              </p>
+              <p className="text-sm text-slate-600 dark:text-gray-400 mb-3 line-clamp-2">{exp.descFr}</p>
             </div>
             <form action={handleDelete}>
               <input type="hidden" name="id" value={exp.id} />
