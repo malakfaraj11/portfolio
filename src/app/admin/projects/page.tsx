@@ -1,5 +1,7 @@
 import { getProjects, createProject, deleteProject } from '@/actions/content';
 import ToggleForm from '@/components/ToggleForm';
+import { writeFile } from 'fs/promises';
+import { join } from 'path';
 
 export default async function AdminProjectsPage() {
   const projects = await getProjects();
@@ -8,6 +10,17 @@ export default async function AdminProjectsPage() {
     'use server';
     const splitByLine = (text: string) => text.split('\n').map(t => t.trim()).filter(Boolean);
     const splitByComma = (text: string) => text.split(',').map(t => t.trim()).filter(Boolean);
+
+    let finalImageUrl = null;
+    const imageFile = formData.get('imageFile') as File | null;
+    if (imageFile && imageFile.size > 0) {
+      const bytes = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const filename = `project-${Date.now()}.${imageFile.name.split('.').pop()}`;
+      const path = join(process.cwd(), 'public', 'uploads', filename);
+      await writeFile(path, buffer);
+      finalImageUrl = `/uploads/${filename}`;
+    }
 
     await createProject({
       title: formData.get('title') as string,
@@ -26,7 +39,7 @@ export default async function AdminProjectsPage() {
       resultsFr: splitByLine(formData.get('resultsFr') as string),
       resultsEn: splitByLine(formData.get('resultsEn') as string),
       categories: splitByComma(formData.get('categories') as string),
-      imageUrl: formData.get('imageUrl') as string || null,
+      imageUrl: finalImageUrl,
       linkUrl: formData.get('linkUrl') as string || null,
       githubUrl: formData.get('githubUrl') as string || null,
     });
@@ -129,12 +142,12 @@ export default async function AdminProjectsPage() {
               <input type="url" name="githubUrl" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" />
             </div>
             <div className="col-span-full">
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Lien Live (URL)</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Lien Live (URL) - Optionnel</label>
               <input type="url" name="linkUrl" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" />
             </div>
             <div className="col-span-full">
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">URL de l'image (Cover)</label>
-              <input type="url" name="imageUrl" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" />
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Image de couverture (JPG/PNG) - Optionnelle</label>
+              <input type="file" name="imageFile" accept="image/png, image/jpeg, image/webp" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" />
             </div>
           </div>
 

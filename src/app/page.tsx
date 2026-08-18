@@ -2,7 +2,7 @@ import PreloaderWrapper from '@/components/PreloaderWrapper';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { MagneticButton } from '@/components/MagneticButton';
-import { Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
+import { Briefcase, GraduationCap, ArrowRight, Code2 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 
 export default async function Home() {
@@ -178,17 +178,30 @@ export default async function Home() {
               {projects.length > 0 ? projects.map((project, idx) => (
                 <ScrollReveal key={project.id} delay={idx * 0.1}>
                   <div className="group block h-full">
-                    <SpotlightCard className="p-6 h-full flex flex-col interactive" spotlightColor="rgba(236, 72, 153, 0.15)">
-                      <div className="aspect-video w-full bg-slate-100 dark:bg-black/50 rounded-lg mb-6 overflow-hidden relative">
+                    <SpotlightCard className="p-6 h-full flex flex-col interactive overflow-hidden border border-slate-200/50 dark:border-white/5 hover:border-fuchsia-500/30 transition-colors" spotlightColor="rgba(236, 72, 153, 0.15)">
+                      <div className="aspect-video w-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-black rounded-lg mb-6 overflow-hidden relative group/image">
                         {project.imageUrl ? (
-                          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          <>
+                            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
+                          </>
                         ) : (
-                          <div className="absolute inset-0 flex items-center justify-center font-mono text-slate-400">NO IMAGE</div>
+                          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]">
+                            <Code2 className="w-8 h-8 mb-2 opacity-50" />
+                            <span className="font-mono text-xs tracking-widest uppercase font-bold">Workspace</span>
+                          </div>
+                        )}
+                        
+                        {project.linkUrl && (
+                          <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-full text-[10px] font-bold tracking-widest uppercase text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 flex items-center gap-2 hover:bg-fuchsia-500 hover:text-white transition-colors">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live
+                          </a>
                         )}
                       </div>
+                      
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.categories.map(cat => (
-                          <span key={cat} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 rounded">
+                          <span key={cat} className="text-[10px] font-mono font-bold px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-300 rounded-full border border-slate-200/50 dark:border-white/5">
                             {cat}
                           </span>
                         ))}
@@ -239,14 +252,14 @@ export default async function Home() {
                             </div>
                           )}
                           
-                          <div className="flex gap-4 pt-4 border-t border-slate-200 dark:border-white/10 mt-4">
+                          <div className="flex gap-4 pt-6 border-t border-slate-200 dark:border-white/10 mt-6">
                             {project.linkUrl && (
-                              <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold text-fuchsia-500 hover:underline">
-                                Visiter le site &rarr;
+                              <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-mono font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 transition-colors bg-fuchsia-50 dark:bg-fuchsia-500/10 px-4 py-2 rounded-full">
+                                Visiter le site <ArrowRight className="w-3 h-3" />
                               </a>
                             )}
                             {project.githubUrl && (
-                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold text-slate-500 hover:underline">
+                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors bg-slate-100 dark:bg-white/5 px-4 py-2 rounded-full">
                                 Code Source (GitHub)
                               </a>
                             )}

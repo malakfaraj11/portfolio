@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { login } from '@/actions/auth';
+import { ArrowLeft } from 'lucide-react';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { MagneticButton } from '@/components/MagneticButton';
 import PreloaderWrapper from '@/components/PreloaderWrapper';
@@ -26,6 +28,14 @@ export default function LoginPage() {
         {/* Background Effects */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-fuchsia-500/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <Link 
+          href="/" 
+          className="absolute top-8 left-8 flex items-center gap-2 text-sm font-mono text-slate-400 hover:text-white transition-colors z-20 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          Retour au Portfolio
+        </Link>
 
         <div className="w-full max-w-md p-6 relative z-10 animate-in fade-in zoom-in-95 duration-700">
           <SpotlightCard className="p-10 border border-white/10 shadow-2xl backdrop-blur-xl bg-white/5" spotlightColor="rgba(217, 70, 239, 0.2)">
