@@ -13,6 +13,8 @@ export default async function AdminProfilePage() {
       location: formData.get('location') as string,
       visionTitle: formData.get('visionTitle') as string,
       visionText: formData.get('visionText') as string,
+      photoUrl: formData.get('photoUrl') as string || null,
+      cvUrl: formData.get('cvUrl') as string || null,
     };
 
     if (profile) {
@@ -35,6 +37,29 @@ export default async function AdminProfilePage() {
             defaultValue={profile?.tagline || 'Creative Developer & UI Engineer'} 
             className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
           />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">URL de la Photo de profil (Optionnel)</label>
+            <input 
+              type="url" 
+              name="photoUrl" 
+              defaultValue={profile?.photoUrl || ''} 
+              className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
+              placeholder="https://..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">URL du CV (Optionnel, ex: lien PDF)</label>
+            <input 
+              type="url" 
+              name="cvUrl" 
+              defaultValue={profile?.cvUrl || ''} 
+              className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
+              placeholder="/cv.pdf ou https://..."
+            />
+          </div>
         </div>
 
         <div>

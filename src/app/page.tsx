@@ -72,18 +72,25 @@ export default async function Home() {
                   href="#contact" 
                   className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform"
                 >
-                  Démarrer un projet <ArrowRight className="w-4 h-4 ml-2 inline" />
+                  Démarrer un projet
                 </MagneticButton>
-                <a href="/cv.pdf" className="text-sm font-mono font-bold text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors underline decoration-dashed underline-offset-4 interactive">
-                  Ouvrir le CV
-                </a>
+                {currentProfile.cvUrl && (
+                  <a href={currentProfile.cvUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-mono font-bold text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors underline decoration-dashed underline-offset-4 interactive">
+                    Ouvrir le CV
+                  </a>
+                )}
               </div>
             </div>
 
             {/* Right Portrait Area */}
             <div className="lg:col-span-5 relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 hidden lg:block">
               <ScrollReveal delay={0.2} className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 group">
-                <div className="absolute inset-0 bg-slate-900 dark:bg-black/80 z-10 flex flex-col justify-end p-8">
+                {currentProfile.photoUrl ? (
+                  <img src={currentProfile.photoUrl} alt="Portrait" className="absolute inset-0 w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
+                ) : (
+                  <div className="absolute inset-0 bg-slate-900 dark:bg-black/80" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-black/90 to-transparent z-10 flex flex-col justify-end p-8 pointer-events-none">
                   <div className="flex justify-between items-end">
                     <div>
                       <div className="text-xs font-mono text-emerald-400 mb-2 flex items-center gap-2">
@@ -168,8 +175,8 @@ export default async function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {projects.length > 0 ? projects.map((project, idx) => (
                 <ScrollReveal key={project.id} delay={idx * 0.1}>
-                  <a href={project.linkUrl || project.githubUrl || '#'} target="_blank" rel="noopener noreferrer" className="group block h-full">
-                    <SpotlightCard className="p-4 h-full flex flex-col interactive" spotlightColor="rgba(236, 72, 153, 0.15)">
+                  <div className="group block h-full">
+                    <SpotlightCard className="p-6 h-full flex flex-col interactive" spotlightColor="rgba(236, 72, 153, 0.15)">
                       <div className="aspect-video w-full bg-slate-100 dark:bg-black/50 rounded-lg mb-6 overflow-hidden relative">
                         {project.imageUrl ? (
                           <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -178,16 +185,74 @@ export default async function Home() {
                         )}
                       </div>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map(tag => (
-                          <span key={tag} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 rounded">
-                            {tag}
+                        {project.categories.map(cat => (
+                          <span key={cat} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 rounded">
+                            {cat}
                           </span>
                         ))}
                       </div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-fuchsia-500 transition-colors">{project.title}</h3>
-                      <p className="text-slate-600 dark:text-gray-400 line-clamp-2">{project.description}</p>
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-fuchsia-500 transition-colors">{project.title}</h3>
+                      <h4 className="text-sm font-mono text-slate-500 mb-4">{project.subtitleFr}</h4>
+                      <p className="text-slate-600 dark:text-gray-400 mb-6 flex-grow">{project.resumeFr}</p>
+                      
+                      <details className="mt-4 border-t border-slate-200 dark:border-white/10 pt-4 group/details">
+                        <summary className="text-sm font-bold text-blue-600 dark:text-blue-400 cursor-pointer list-none flex items-center gap-2">
+                          Voir les détails <span className="group-open/details:rotate-180 transition-transform text-xs">▼</span>
+                        </summary>
+                        <div className="mt-4 space-y-4 text-sm text-slate-600 dark:text-gray-400 animate-in fade-in slide-in-from-top-2">
+                          {project.problemFr && (
+                            <div>
+                              <strong className="text-slate-900 dark:text-white block mb-1">Le Problème :</strong>
+                              <p>{project.problemFr}</p>
+                            </div>
+                          )}
+                          {project.goalsFr && project.goalsFr.length > 0 && (
+                            <div>
+                              <strong className="text-slate-900 dark:text-white block mb-1">Objectifs :</strong>
+                              <ul className="list-disc pl-4 space-y-1">
+                                {project.goalsFr.map((g, i) => <li key={i}>{g}</li>)}
+                              </ul>
+                            </div>
+                          )}
+                          {project.solutionFr && (
+                            <div>
+                              <strong className="text-slate-900 dark:text-white block mb-1">La Solution :</strong>
+                              <p>{project.solutionFr}</p>
+                            </div>
+                          )}
+                          {project.archFr && project.archFr.length > 0 && (
+                            <div>
+                              <strong className="text-slate-900 dark:text-white block mb-1">Architecture Technique :</strong>
+                              <ul className="list-disc pl-4 space-y-1">
+                                {project.archFr.map((a, i) => <li key={i}>{a}</li>)}
+                              </ul>
+                            </div>
+                          )}
+                          {project.resultsFr && project.resultsFr.length > 0 && (
+                            <div>
+                              <strong className="text-slate-900 dark:text-white block mb-1">Résultats :</strong>
+                              <ul className="list-disc pl-4 space-y-1">
+                                {project.resultsFr.map((r, i) => <li key={i}>{r}</li>)}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          <div className="flex gap-4 pt-4 border-t border-slate-200 dark:border-white/10 mt-4">
+                            {project.linkUrl && (
+                              <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold text-fuchsia-500 hover:underline">
+                                Visiter le site &rarr;
+                              </a>
+                            )}
+                            {project.githubUrl && (
+                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold text-slate-500 hover:underline">
+                                Code Source (GitHub)
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </details>
                     </SpotlightCard>
-                  </a>
+                  </div>
                 </ScrollReveal>
               )) : (
                 <div className="col-span-full py-20 text-center text-slate-500 font-mono">

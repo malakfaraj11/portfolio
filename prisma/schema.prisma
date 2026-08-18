@@ -16,6 +16,8 @@ model Profile {
   location    String   // ex: "Paris, FR"
   visionTitle String   // ex: "Ma Vision"
   visionText  String   @db.Text
+  photoUrl    String?
+  cvUrl       String?
   metrics     Metric[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -54,11 +56,24 @@ model Experience {
 model Project {
   id          String   @id @default(cuid())
   title       String
-  description String   @db.Text
+  subtitleFr  String?
+  subtitleEn  String?
+  resumeFr    String?  @db.Text
+  resumeEn    String?  @db.Text
+  problemFr   String?  @db.Text
+  problemEn   String?  @db.Text
+  goalsFr     String[]
+  goalsEn     String[]
+  solutionFr  String?  @db.Text
+  solutionEn  String?  @db.Text
+  archFr      String[]
+  archEn      String[]
+  resultsFr   String[]
+  resultsEn   String[]
+  categories  String[] // Catégories Technologies
   imageUrl    String?
   linkUrl     String?
   githubUrl   String?
-  tags        String[]
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
