@@ -1,16 +1,27 @@
-import { getProjects } from '@/actions/projects';
-import { getCertificates } from '@/actions/certificates';
-import ProjectCard from '@/components/ProjectCard';
-import CertificateCard from '@/components/CertificateCard';
 import PreloaderWrapper from '@/components/PreloaderWrapper';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { MagneticButton } from '@/components/MagneticButton';
 import { Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
+import prisma from '@/lib/prisma';
 
 export default async function Home() {
-  const projects = await getProjects();
-  const certificates = await getCertificates();
+  const profile = await prisma.profile.findFirst({ include: { metrics: true } });
+  const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
+  const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } });
+  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } });
+
+  // Default values if DB is empty
+  const defaultProfile = {
+    tagline: 'CREATIVE DEVELOPER',
+    bio: 'Je construis des solutions innovantes à l\'intersection du développement web, du design interactif et de l\'expérience utilisateur.',
+    status: 'Available for work',
+    location: 'Paris, FR',
+    visionTitle: 'Ma Vision',
+    visionText: 'Mon travail connecte les besoins métiers, l\'expérience utilisateur intuitive et les architectures front-end modernes de haute performance.'
+  };
+
+  const currentProfile = profile || defaultProfile;
 
   return (
     <PreloaderWrapper>
@@ -26,30 +37,32 @@ export default async function Home() {
               {/* Available Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 mb-8 backdrop-blur-md shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-bold tracking-[0.2em] text-emerald-700 dark:text-emerald-400 uppercase">Available for work</span>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-emerald-700 dark:text-emerald-400 uppercase">{currentProfile.status}</span>
               </div>
 
               {/* Massive Title */}
-              <h1 className="text-7xl sm:text-8xl lg:text-[160px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-gray-500 mb-6 leading-[0.8] uppercase select-none">
-                MALAK <br/> FARAJ
+              <h1 className="text-7xl sm:text-8xl lg:text-[140px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-gray-500 mb-6 leading-[0.85] uppercase select-none">
+                {currentProfile.tagline.split(' ').map((word, i) => (
+                  <span key={i}>{word} <br/></span>
+                ))}
               </h1>
 
               {/* Skill Tags - Using Spotlight */}
               <div className="flex flex-wrap gap-3 mb-10">
-                <SpotlightCard className="px-4 py-2" spotlightColor="rgba(59, 130, 246, 0.2)">
-                  <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">FRONTEND</span>
-                </SpotlightCard>
-                <SpotlightCard className="px-4 py-2" spotlightColor="rgba(236, 72, 153, 0.2)">
-                  <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">UX/UI DESIGN</span>
-                </SpotlightCard>
-                <SpotlightCard className="px-4 py-2" spotlightColor="rgba(99, 102, 241, 0.2)">
-                  <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">FULLSTACK</span>
-                </SpotlightCard>
+                {skills.length > 0 ? skills.slice(0, 4).map(skill => (
+                  <SpotlightCard key={skill.id} className="px-4 py-2" spotlightColor="rgba(59, 130, 246, 0.2)">
+                    <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">{skill.name}</span>
+                  </SpotlightCard>
+                )) : (
+                  <SpotlightCard className="px-4 py-2" spotlightColor="rgba(59, 130, 246, 0.2)">
+                    <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">AJOUTER DES SKILLS EN ADMIN</span>
+                  </SpotlightCard>
+                )}
               </div>
 
               {/* Bio */}
-              <p className="text-xl text-slate-600 dark:text-gray-400 max-w-xl leading-relaxed mb-10">
-                Je construis des solutions innovantes à l'intersection du <span className="text-slate-900 dark:text-white font-semibold">développement web</span>, du design interactif et de l'expérience utilisateur.
+              <p className="text-lg text-slate-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
+                {currentProfile.bio}
               </p>
 
               {/* CTA Buttons - Magnetic */}
@@ -69,30 +82,19 @@ export default async function Home() {
 
             {/* Right Portrait Area */}
             <div className="lg:col-span-5 relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 hidden lg:block">
-              {/* Tech Frame Background */}
-              <div className="absolute -inset-4 border border-slate-200 dark:border-white/10 rounded-3xl opacity-50">
-                <div className="absolute top-8 -left-2 w-4 h-[1px] bg-fuchsia-500" />
-                <div className="absolute bottom-16 -right-2 w-4 h-[1px] bg-blue-500" />
-              </div>
-              
-              {/* Portrait Container */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-200/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-md group shadow-2xl">
-                {/* Place holder for user's image */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-gray-500">
-                   <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 dark:from-gray-800 dark:to-gray-900 opacity-50 group-hover:opacity-70 transition-opacity" />
-                   <span className="absolute text-sm font-mono tracking-widest">[PHOTO PROFIL]</span>
+              <ScrollReveal delay={0.2} className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 group">
+                <div className="absolute inset-0 bg-slate-900 dark:bg-black/80 z-10 flex flex-col justify-end p-8">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <div className="text-xs font-mono text-emerald-400 mb-2 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> STATUS: ONLINE<br/>
+                        UPLINK: STABLE
+                      </div>
+                    </div>
+                    <div className="text-xs font-mono text-slate-500 dark:text-gray-600">SYS.01 // REC</div>
+                  </div>
                 </div>
-
-                {/* Tech Overlays */}
-                <div className="absolute top-4 left-4 text-[10px] font-mono text-slate-500 dark:text-gray-400 leading-tight bg-slate-100/80 dark:bg-black/40 px-2 py-1 rounded backdrop-blur-md">
-                  STATUS: <span className="text-emerald-500">ONLINE</span><br/>
-                  UPLINK: <span className="text-blue-500">STABLE</span>
-                </div>
-                
-                <div className="absolute bottom-4 right-4 text-[10px] font-mono text-slate-400 dark:text-gray-500">
-                  SYS.01 // REC
-                </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </section>
@@ -101,27 +103,39 @@ export default async function Home() {
           
           {/* AT A GLANCE SECTION */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <ScrollReveal direction="left" className="sticky top-32">
-              <span className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Aperçu du Profil</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] text-slate-900 dark:text-white mb-6">
-                Une passion pour le code, renforcée par <span className="bg-gradient-to-r from-blue-600 to-fuchsia-500 bg-clip-text text-transparent">la pratique</span>.
-              </h2>
-              <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed">
-                Mon travail connecte les besoins métiers, l'expérience utilisateur intuitive et les architectures front-end modernes de haute performance.
-              </p>
-            </ScrollReveal>
+            <div className="lg:col-span-4 sticky top-32">
+              <ScrollReveal>
+                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6">
+                  {currentProfile.visionTitle}
+                </h2>
+                <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed mb-8">
+                  {currentProfile.visionText}
+                </p>
+                <div className="flex items-center gap-4 text-sm font-bold text-slate-900 dark:text-white">
+                  <div className="w-12 h-[1px] bg-fuchsia-500" />
+                  Localisation : {currentProfile.location}
+                </div>
+              </ScrollReveal>
+            </div>
             
             <div className="flex flex-col gap-6">
-              {/* Bento Card 1 */}
+              {/* Bento Card 1: Technologies / Skills */}
               <ScrollReveal delay={0.1}>
                 <SpotlightCard className="p-8 h-full">
                   <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">01</div>
-                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-2 uppercase tracking-wider">Formation</h3>
-                  <p className="text-xl font-bold text-slate-900 dark:text-white">Ingénierie Informatique / Développement Web</p>
+                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-4 uppercase tracking-wider">Stack Technique</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map(skill => (
+                      <span key={skill.id} className="text-xs font-mono font-bold bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10">
+                        {skill.name}
+                      </span>
+                    ))}
+                    {skills.length === 0 && <span className="text-xs text-slate-500">Ajouter des technos dans l&apos;admin</span>}
+                  </div>
                 </SpotlightCard>
               </ScrollReveal>
 
-              {/* Bento Card 2 */}
+              {/* Bento Card 2: Current / Latest Experience */}
               <ScrollReveal delay={0.2}>
                 <SpotlightCard className="p-8 h-full" spotlightColor="rgba(59, 130, 246, 0.15)">
                   <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">02</div>
@@ -129,19 +143,9 @@ export default async function Home() {
                     <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">Expérience Actuelle</h3>
                     <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20">Current</span>
                   </div>
-                  <p className="text-xl font-bold text-slate-900 dark:text-white">Développeuse Frontend & UI Designer</p>
-                </SpotlightCard>
-              </ScrollReveal>
-
-              {/* Bento Card 3 */}
-              <ScrollReveal delay={0.3}>
-                <SpotlightCard className="p-8 h-full" spotlightColor="rgba(236, 72, 153, 0.15)">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">03</div>
-                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-4 uppercase tracking-wider">Langues</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="text-xs font-mono font-bold bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10">Français (Natif)</span>
-                    <span className="text-xs font-mono font-bold bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10">Anglais (Bilingue)</span>
-                  </div>
+                  <p className="text-xl font-bold text-slate-900 dark:text-white">
+                    {experiences.length > 0 ? `${experiences[0].role} @ ${experiences[0].company}` : 'Développeur Indépendant'}
+                  </p>
                 </SpotlightCard>
               </ScrollReveal>
             </div>
@@ -157,25 +161,39 @@ export default async function Home() {
                     Projets à travers plusieurs disciplines.
                   </h2>
                 </div>
-                <a href="/projects" className="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-lg font-mono text-sm font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors whitespace-nowrap shadow-sm">
-                  VOIR TOUS LES PROJETS &rarr;
-                </a>
               </div>
             </ScrollReveal>
             
-            {projects.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {projects.slice(0, 3).map((project, idx) => (
-                  <ScrollReveal key={project.id} delay={idx * 0.1}>
-                    <ProjectCard project={project} />
-                  </ScrollReveal>
-                ))}
-              </div>
-            ) : (
-              <p className="text-slate-500 dark:text-gray-400 bg-white dark:bg-[#0f0f11]/80 p-12 rounded-2xl border border-slate-200 dark:border-white/5 text-center transition-colors backdrop-blur-xl">
-                Aucun projet pour le moment. Allez dans l'espace admin pour en ajouter !
-              </p>
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {projects.length > 0 ? projects.map((project, idx) => (
+                <ScrollReveal key={project.id} delay={idx * 0.1}>
+                  <a href={project.linkUrl || project.githubUrl || '#'} target="_blank" rel="noopener noreferrer" className="group block h-full">
+                    <SpotlightCard className="p-4 h-full flex flex-col interactive" spotlightColor="rgba(236, 72, 153, 0.15)">
+                      <div className="aspect-video w-full bg-slate-100 dark:bg-black/50 rounded-lg mb-6 overflow-hidden relative">
+                        {project.imageUrl ? (
+                          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center font-mono text-slate-400">NO IMAGE</div>
+                        )}
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map(tag => (
+                          <span key={tag} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 rounded">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-fuchsia-500 transition-colors">{project.title}</h3>
+                      <p className="text-slate-600 dark:text-gray-400 line-clamp-2">{project.description}</p>
+                    </SpotlightCard>
+                  </a>
+                </ScrollReveal>
+              )) : (
+                <div className="col-span-full py-20 text-center text-slate-500 font-mono">
+                  [AUCUN PROJET - AJOUTEZ-EN DEPUIS L'ADMIN]
+                </div>
+              )}
+            </div>
           </section>
 
           {/* JOURNEY / TIMELINE SECTION */}
@@ -187,60 +205,37 @@ export default async function Home() {
                 </h2>
             </ScrollReveal>
             
-            <div className="relative max-w-3xl mx-auto">
-              {/* Vertical Timeline Line */}
-              <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-slate-200 dark:bg-white/10 transform md:-translate-x-1/2" />
-              
-              {/* Timeline Item 1 */}
-              <ScrollReveal delay={0.1} className="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
-                <div className="hidden md:block w-5/12 text-right pr-12">
-                  <p className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-sm font-bold tracking-wider">2023 — PRESENT</p>
+            <div className="max-w-3xl mx-auto space-y-12">
+              {experiences.length > 0 ? experiences.map((exp, idx) => (
+                <ScrollReveal key={exp.id} delay={idx * 0.1} className="relative pl-8 md:pl-0">
+                  <div className="md:grid md:grid-cols-5 md:gap-8 items-start">
+                    <div className="hidden md:block col-span-1 pt-1 text-right">
+                      <span className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 tracking-widest">{exp.startDate} &mdash; {exp.endDate}</span>
+                    </div>
+                    <div className="col-span-4 relative">
+                      <div className="absolute -left-[41px] md:-left-12 top-1.5 w-4 h-4 rounded-full bg-white dark:bg-[#0f0f11] border-4 border-fuchsia-500 z-10 shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{exp.role}</h3>
+                      <h4 className="text-fuchsia-600 dark:text-fuchsia-400 font-mono text-sm tracking-wider uppercase mb-4">{exp.company}</h4>
+                      <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-4">
+                        {exp.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {exp.techStack.map(tech => (
+                          <span key={tech} className="text-[10px] font-mono border border-slate-200 dark:border-white/10 px-2 py-1 rounded text-slate-500 dark:text-gray-500">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              )) : (
+                <div className="text-center text-slate-500 font-mono py-10">
+                  [AUCUNE EXPÉRIENCE - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
                 </div>
-                
-                {/* Icon */}
-                <div className="absolute left-6 md:left-1/2 w-12 h-12 rounded-full bg-slate-50 dark:bg-[#0A0A0A] border border-slate-300 dark:border-white/20 flex items-center justify-center transform -translate-x-1/2 z-10 text-fuchsia-600 dark:text-fuchsia-500 shadow-xl shadow-fuchsia-500/10 group-hover:scale-110 group-hover:border-fuchsia-500 transition-all duration-300">
-                  <Briefcase className="w-5 h-5" />
-                </div>
-                
-                <div className="w-full md:w-5/12 pl-20 md:pl-12">
-                  <p className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-sm font-bold md:hidden mb-2 tracking-wider">2023 — PRESENT</p>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Développeuse Web Freelance</h3>
-                  <span className="text-xs font-mono text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-3 block">Expérience</span>
-                  <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Création d'applications web sur mesure pour divers clients internationaux. Focus sur la performance et l'accessibilité.</p>
-                </div>
-              </ScrollReveal>
-
-              {/* Timeline Item 2 */}
-              <ScrollReveal delay={0.2} className="relative flex flex-col md:flex-row items-center justify-between group">
-                <div className="w-full md:w-5/12 pl-20 md:pl-0 md:text-right md:pr-12 order-2 md:order-1 mt-2 md:mt-0">
-                  <p className="text-blue-600 dark:text-blue-500 font-mono text-sm font-bold md:hidden mb-2 tracking-wider">2021 — 2023</p>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Diplôme en Informatique</h3>
-                  <span className="text-xs font-mono text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-3 block">Formation</span>
-                  <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Spécialisation en développement logiciel, architecture des systèmes et design d'interfaces utilisateur.</p>
-                </div>
-                
-                {/* Icon */}
-                <div className="absolute left-6 md:left-1/2 w-12 h-12 rounded-full bg-slate-50 dark:bg-[#0A0A0A] border border-slate-300 dark:border-white/20 flex items-center justify-center transform -translate-x-1/2 z-10 text-blue-600 dark:text-blue-500 shadow-xl shadow-blue-500/10 order-1 md:order-2 group-hover:scale-110 group-hover:border-blue-500 transition-all duration-300">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                
-                <div className="hidden md:block w-5/12 pl-12 order-3">
-                   <p className="text-blue-600 dark:text-blue-500 font-mono text-sm font-bold tracking-wider">2021 — 2023</p>
-                </div>
-              </ScrollReveal>
+              )}
             </div>
             
-            {/* Fallback to display certificates inside journey if there are any */}
-            {certificates.length > 0 && (
-              <div className="mt-32">
-                <h3 className="text-center text-xl font-bold text-slate-900 dark:text-white mb-10">Certifications Obtenues</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                  {certificates.map((cert) => (
-                    <CertificateCard key={cert.id} certificate={cert} />
-                  ))}
-                </div>
-              </div>
-            )}
           </section>
 
         </main>
