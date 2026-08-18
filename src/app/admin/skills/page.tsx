@@ -28,7 +28,7 @@ export default async function AdminSkillsPage() {
             name="name" 
             placeholder="Nom (ex: React, Next.js)" 
             required 
-            className="flex-1 bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" 
+            className="flex-1 bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" 
           />
           
           <input 
@@ -37,7 +37,7 @@ export default async function AdminSkillsPage() {
             list="category-list"
             placeholder="Catégorie (choisir ou taper)" 
             required 
-            className="bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
+            className="bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
           />
           <datalist id="category-list">
             <option value="Frontend" />

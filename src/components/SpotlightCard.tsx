@@ -48,7 +48,7 @@ export function SpotlightCard({ children, className = "", spotlightColor = "rgba
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-md transition-colors ${className}`}
+      className={`relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-[#161618]/80 backdrop-blur-md transition-colors ${className}`}
     >
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"

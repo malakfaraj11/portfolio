@@ -60,7 +60,7 @@ export default async function AdminProfilePage() {
             type="text" 
             name="tagline" 
             defaultValue={profile?.tagline || 'Creative Developer & UI Engineer'} 
-            className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
+            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
           />
         </div>
 
@@ -71,7 +71,7 @@ export default async function AdminProfilePage() {
               type="file" 
               name="photoFile" 
               accept="image/png, image/jpeg, image/webp"
-              className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
+              className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
             />
             {profile?.photoUrl && <p className="text-xs text-slate-500 mt-2">Actuelle: {profile.photoUrl}</p>}
           </div>
@@ -81,7 +81,7 @@ export default async function AdminProfilePage() {
               type="file" 
               name="cvFile" 
               accept="application/pdf"
-              className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
+              className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
             />
             {profile?.cvUrl && <p className="text-xs text-slate-500 mt-2">Actuel: {profile.cvUrl}</p>}
           </div>
@@ -92,7 +92,7 @@ export default async function AdminProfilePage() {
           <textarea 
             name="bio" 
             defaultValue={profile?.bio || 'Je construis des solutions innovantes...'} 
-            className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white h-24"
+            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white h-24"
           />
         </div>
 
@@ -103,7 +103,7 @@ export default async function AdminProfilePage() {
               type="text" 
               name="status" 
               defaultValue={profile?.status || 'Disponible pour des missions'} 
-              className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
+              className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
             />
           </div>
           <div>
@@ -112,7 +112,7 @@ export default async function AdminProfilePage() {
               type="text" 
               name="location" 
               defaultValue={profile?.location || 'Paris, FR'} 
-              className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
+              className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
             />
           </div>
         </div>
@@ -123,7 +123,7 @@ export default async function AdminProfilePage() {
             type="text" 
             name="visionTitle" 
             defaultValue={profile?.visionTitle || 'Ma Vision'} 
-            className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
+            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white"
           />
         </div>
 
@@ -132,7 +132,7 @@ export default async function AdminProfilePage() {
           <textarea 
             name="visionText" 
             defaultValue={profile?.visionText || 'Mon approche connecte les besoins métiers...'} 
-            className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white h-32"
+            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white h-32"
           />
         </div>
 

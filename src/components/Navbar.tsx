@@ -13,7 +13,7 @@ export function Navbar() {
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="flex items-center gap-1 md:gap-4 px-4 py-2 bg-white/70 dark:bg-black/40 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full shadow-lg">
+      <nav className="flex items-center gap-1 md:gap-4 px-4 py-2 bg-white/70 dark:bg-[#161618]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full shadow-lg">
         
         <Link href="/" className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black font-bold mr-2 hover:scale-105 transition-transform">
           W

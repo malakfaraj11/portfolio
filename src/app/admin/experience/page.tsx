@@ -31,7 +31,7 @@ export default async function AdminExperiencePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Type *</label>
-              <select name="type" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none">
+              <select name="type" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none">
                 <option value="Expérience">Expérience</option>
                 <option value="Organisation">Organisation</option>
                 <option value="Formation">Formation</option>
@@ -39,30 +39,30 @@ export default async function AdminExperiencePage() {
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre FR *</label>
-              <input type="text" name="titleFr" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="text" name="titleFr" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre EN *</label>
-              <input type="text" name="titleEn" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="text" name="titleEn" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de début * (jj/mm/aaaa)</label>
-              <input type="date" name="startDate" required className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="date" name="startDate" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de fin prévue ou effective (jj/mm/aaaa) (Laisser vide si en cours)</label>
-              <input type="date" name="endDate" className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="date" name="endDate" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description FR</label>
-              <textarea name="descFr" rows={4} className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
+              <textarea name="descFr" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description EN</label>
-              <textarea name="descEn" rows={4} className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
+              <textarea name="descEn" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
             </div>
           </div>
 

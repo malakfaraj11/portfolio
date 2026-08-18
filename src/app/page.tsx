@@ -91,7 +91,7 @@ export default async function Home() {
                 {currentProfile.photoUrl ? (
                   <img src={currentProfile.photoUrl} alt="Portrait" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 hover:scale-105" />
                 ) : (
-                  <div className="absolute inset-0 bg-slate-900 dark:bg-black/80" />
+                  <div className="absolute inset-0 bg-slate-900 dark:bg-[#0f0f11]/90" />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-black/90 to-transparent z-10 flex flex-col justify-end p-8 pointer-events-none">
                   <div className="flex justify-between items-end">
@@ -194,7 +194,7 @@ export default async function Home() {
                         )}
                         
                         {project.linkUrl && (
-                          <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-full text-[10px] font-bold tracking-widest uppercase text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 flex items-center gap-2 hover:bg-fuchsia-500 hover:text-white transition-colors">
+                          <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-[#161618]/90 backdrop-blur-md rounded-full text-[10px] font-bold tracking-widest uppercase text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 flex items-center gap-2 hover:bg-fuchsia-500 hover:text-white transition-colors">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live
                           </a>
                         )}
