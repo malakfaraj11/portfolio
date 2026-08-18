@@ -1,11 +1,36 @@
-import { getProfile } from '@/actions/content';
-import { updateProfile, createProfile } from '@/actions/content';
+import { getProfile, updateProfile, createProfile } from '@/actions/content';
+import { writeFile } from 'fs/promises';
+import { join } from 'path';
 
 export default async function AdminProfilePage() {
   const profile = await getProfile();
 
   async function handleSave(formData: FormData) {
     'use server';
+    // Gérer l'upload de la photo
+    const photoFile = formData.get('photoFile') as File | null;
+    let finalPhotoUrl = profile?.photoUrl || null;
+    if (photoFile && photoFile.size > 0) {
+      const bytes = await photoFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const filename = `photo-${Date.now()}.${photoFile.name.split('.').pop()}`;
+      const path = join(process.cwd(), 'public', 'uploads', filename);
+      await writeFile(path, buffer);
+      finalPhotoUrl = `/uploads/${filename}`;
+    }
+
+    // Gérer l'upload du CV
+    const cvFile = formData.get('cvFile') as File | null;
+    let finalCvUrl = profile?.cvUrl || null;
+    if (cvFile && cvFile.size > 0) {
+      const bytes = await cvFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const filename = `cv-${Date.now()}.${cvFile.name.split('.').pop()}`;
+      const path = join(process.cwd(), 'public', 'uploads', filename);
+      await writeFile(path, buffer);
+      finalCvUrl = `/uploads/${filename}`;
+    }
+
     const data = {
       tagline: formData.get('tagline') as string,
       bio: formData.get('bio') as string,
@@ -13,8 +38,8 @@ export default async function AdminProfilePage() {
       location: formData.get('location') as string,
       visionTitle: formData.get('visionTitle') as string,
       visionText: formData.get('visionText') as string,
-      photoUrl: formData.get('photoUrl') as string || null,
-      cvUrl: formData.get('cvUrl') as string || null,
+      photoUrl: finalPhotoUrl,
+      cvUrl: finalCvUrl,
     };
 
     if (profile) {
@@ -41,24 +66,24 @@ export default async function AdminProfilePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">URL de la Photo de profil (Optionnel)</label>
+            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Photo de profil (JPG/PNG)</label>
             <input 
-              type="url" 
-              name="photoUrl" 
-              defaultValue={profile?.photoUrl || ''} 
+              type="file" 
+              name="photoFile" 
+              accept="image/png, image/jpeg, image/webp"
               className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
-              placeholder="https://..."
             />
+            {profile?.photoUrl && <p className="text-xs text-slate-500 mt-2">Actuelle: {profile.photoUrl}</p>}
           </div>
           <div>
-            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">URL du CV (Optionnel, ex: lien PDF)</label>
+            <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Fichier CV (PDF)</label>
             <input 
-              type="url" 
-              name="cvUrl" 
-              defaultValue={profile?.cvUrl || ''} 
+              type="file" 
+              name="cvFile" 
+              accept="application/pdf"
               className="w-full bg-slate-50 dark:bg-black/50 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white" 
-              placeholder="/cv.pdf ou https://..."
             />
+            {profile?.cvUrl && <p className="text-xs text-slate-500 mt-2">Actuel: {profile.cvUrl}</p>}
           </div>
         </div>
 

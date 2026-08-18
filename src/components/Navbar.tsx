@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { Code2, User, Briefcase, Mail } from "lucide-react";
 
 export function Navbar() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin") || pathname.startsWith("/login")) {
+    return null;
+  }
+
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
       <nav className="flex items-center gap-1 md:gap-4 px-4 py-2 bg-white/70 dark:bg-black/40 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full shadow-lg">
