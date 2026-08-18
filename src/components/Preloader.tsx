@@ -42,7 +42,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
 
       if (targetProgress >= 100) {
          setProgress(100);
-         setTimeout(() => setIsFinished(true), 200); // Petite pause magique à 100%
+         setTimeout(() => setIsFinished(true), 200); // Petite pause avant disparition
       } else {
          setProgress(targetProgress);
          animationFrameId = requestAnimationFrame(animate);

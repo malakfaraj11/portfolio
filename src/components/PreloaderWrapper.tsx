@@ -9,19 +9,13 @@ export default function PreloaderWrapper({ children }: { children: React.ReactNo
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const hasLoaded = sessionStorage.getItem("portfolio_has_loaded");
-    if (hasLoaded) {
-      setIsLoading(false);
-    } else {
-      document.body.style.overflow = "hidden";
-      window.scrollTo(0, 0);
-    }
+    document.body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
   }, []);
 
   const handleComplete = () => {
     setIsLoading(false);
     document.body.style.overflow = "";
-    sessionStorage.setItem("portfolio_has_loaded", "true");
   };
 
   return (

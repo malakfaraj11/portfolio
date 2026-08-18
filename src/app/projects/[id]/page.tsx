@@ -16,41 +16,45 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0f0f11] font-sans">
-      {/* Header / Cover */}
-      <div className="w-full h-[50vh] md:h-[70vh] relative bg-slate-900 border-b border-slate-200 dark:border-white/10">
-        {project.imageUrl ? (
-          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover opacity-60" />
-        ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-slate-500 opacity-20">
-            <Code2 className="w-24 h-24 mb-4" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 dark:from-[#0f0f11] dark:via-[#0f0f11]/40 to-transparent" />
+      {/* Header */}
+      <div className="w-full relative bg-slate-50 dark:bg-[#0a0a0c] border-b border-slate-200 dark:border-white/10 pt-32 pb-16">
+        <div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-white/[0.02] bg-[size:32px]" />
         
-        <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
-          <div className="max-w-4xl mx-auto">
-            <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition-colors mb-6 group">
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              Retour aux projets
-            </Link>
-            
-            <div className="flex flex-wrap gap-2 mb-6">
-              {project.categories.map(cat => (
-                <span key={cat} className="text-xs font-mono font-bold px-3 py-1 bg-slate-900/10 dark:bg-white/10 backdrop-blur-md text-slate-900 dark:text-white rounded-full border border-slate-900/20 dark:border-white/20">
-                  {cat}
-                </span>
-              ))}
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-4 tracking-tight leading-none">
-              {project.title}
-            </h1>
-            <h2 className="text-xl md:text-2xl font-mono text-slate-600 dark:text-gray-400 max-w-2xl">
-              {project.subtitleFr}
-            </h2>
+        <div className="relative w-full px-6 max-w-5xl mx-auto">
+          <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-fuchsia-500 transition-colors mb-8 group">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            Retour aux projets
+          </Link>
+          
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.categories.map(cat => (
+              <span key={cat} className="text-xs font-mono font-bold px-3 py-1 bg-slate-200/50 dark:bg-white/5 text-slate-700 dark:text-gray-300 rounded-full border border-slate-300/50 dark:border-white/10">
+                {cat}
+              </span>
+            ))}
           </div>
+          
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 tracking-tight leading-none">
+            {project.title}
+          </h1>
+          <h2 className="text-xl md:text-2xl font-mono text-slate-600 dark:text-gray-400 max-w-3xl">
+            {project.subtitleFr}
+          </h2>
         </div>
       </div>
+
+      {/* Main Image Section */}
+      {project.imageUrl && (
+        <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10">
+          <div className="w-full bg-white dark:bg-[#161618] rounded-2xl md:rounded-[32px] overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 flex items-center justify-center p-2 md:p-4">
+            <img 
+              src={project.imageUrl} 
+              alt={project.title} 
+              className="w-full h-auto max-h-[80vh] object-contain rounded-xl md:rounded-[24px]" 
+            />
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-6 py-20 space-y-20">
