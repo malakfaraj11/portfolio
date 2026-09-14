@@ -7,7 +7,8 @@ export default function AdminNav() {
   const pathname = usePathname();
 
   const links = [
-    { href: '/admin', label: 'Profil & Vision' },
+    { href: '/admin', label: 'Tableau de bord' },
+    { href: '/admin/profile', label: 'Profil & Vision' },
     { href: '/admin/certifications', label: 'Certifications' },
     { href: '/admin/experience', label: 'Parcours' },
     { href: '/admin/projects', label: 'Projets' },
