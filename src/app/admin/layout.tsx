@@ -45,6 +45,12 @@ export default function AdminLayout({
           >
             Projets
           </Link>
+          <Link
+            href="/admin/messages"
+            className="whitespace-nowrap px-4 py-2 md:py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
+          >
+            Messagerie
+          </Link>
         </nav>
         
         <div className="hidden md:block p-6 border-t border-slate-200 dark:border-white/5">

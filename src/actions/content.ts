@@ -85,3 +85,20 @@ export async function deleteProject(id: string) {
   revalidatePath('/');
   revalidatePath('/admin/projects');
 }
+
+// --- MESSAGES ---
+export async function getMessages() {
+  return await prisma.contactMessage.findMany({
+    orderBy: { createdAt: 'desc' }
+  });
+}
+
+export async function createMessage(data: any) {
+  await prisma.contactMessage.create({ data });
+  revalidatePath('/admin/messages');
+}
+
+export async function deleteMessage(id: string) {
+  await prisma.contactMessage.delete({ where: { id } });
+  revalidatePath('/admin/messages');
+}
