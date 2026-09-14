@@ -41,6 +41,13 @@ export async function createCertification(data: any) {
   revalidatePath('/certifications');
 }
 
+export async function updateCertification(id: string, data: any) {
+  await prisma.certification.update({ where: { id }, data });
+  revalidatePath('/');
+  revalidatePath('/admin/certifications');
+  revalidatePath('/certifications');
+}
+
 export async function deleteCertification(id: string) {
   await prisma.certification.delete({ where: { id } });
   revalidatePath('/');
@@ -57,6 +64,12 @@ export async function getExperiences() {
 
 export async function createExperience(data: any) {
   await prisma.experience.create({ data });
+  revalidatePath('/');
+  revalidatePath('/admin/experience');
+}
+
+export async function updateExperience(id: string, data: any) {
+  await prisma.experience.update({ where: { id }, data });
   revalidatePath('/');
   revalidatePath('/admin/experience');
 }
@@ -78,6 +91,14 @@ export async function createProject(data: any) {
   await prisma.project.create({ data });
   revalidatePath('/');
   revalidatePath('/admin/projects');
+}
+
+export async function updateProject(id: string, data: any) {
+  await prisma.project.update({ where: { id }, data });
+  revalidatePath('/');
+  revalidatePath('/admin/projects');
+  revalidatePath(`/projects/${id}`);
+  revalidatePath('/projects');
 }
 
 export async function deleteProject(id: string) {

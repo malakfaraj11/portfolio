@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import AdminNav from '@/components/AdminNav';
+import { Toaster } from 'sonner';
 
 export default function AdminLayout({
   children,
@@ -8,6 +9,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className="h-dvh flex flex-col md:flex-row overflow-hidden relative">
+      <Toaster position="bottom-right" richColors theme="dark" />
       {/* Sidebar */}
       <aside className="w-full md:w-64 shrink-0 bg-slate-50 dark:bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/10 flex flex-col z-20">
         <div className="p-4 md:p-6 border-b border-slate-200 dark:border-white/10 flex justify-between items-center">
