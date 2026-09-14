@@ -40,23 +40,37 @@ export default async function CertificationsPage() {
                   className="h-full flex flex-col interactive overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-[#161618] hover:border-slate-300 dark:hover:border-white/20 transition-all duration-500 rounded-[32px] p-8" 
                   spotlightColor="rgba(150, 150, 150, 0.1)"
                 >
-                  <div className="mb-6 flex justify-between items-start">
-                    <div className="bg-fuchsia-500/10 text-fuchsia-500 p-3 rounded-2xl">
-                      <Award className="w-8 h-8" />
-                    </div>
-                    {cert.date && (
-                      <span className="text-xs font-mono text-slate-400 dark:text-gray-500 border border-slate-200 dark:border-white/10 px-3 py-1 rounded-full">
-                        {new Date(cert.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
-                      </span>
+                  <div className="mb-6 flex-grow flex flex-col">
+                    {cert.url && (cert.url.endsWith('.pdf') || cert.url.endsWith('.jpg') || cert.url.endsWith('.png') || cert.url.endsWith('.jpeg')) ? (
+                      <div className="w-full h-48 mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/10 relative">
+                        {cert.url.endsWith('.pdf') ? (
+                          <object data={`${cert.url}#toolbar=0&navpanes=0&scrollbar=0`} type="application/pdf" className="w-full h-[200%] -mt-10 pointer-events-none overflow-hidden" />
+                        ) : (
+                          <img src={cert.url} alt={cert.name} className="w-full h-full object-cover" />
+                        )}
+                        <div className="absolute inset-0 bg-transparent pointer-events-auto" />
+                      </div>
+                    ) : (
+                      <div className="bg-fuchsia-500/10 text-fuchsia-500 p-4 rounded-2xl w-fit mb-6 shrink-0">
+                        <Award className="w-8 h-8" />
+                      </div>
                     )}
+                    
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-black text-slate-900 dark:text-white group-hover:text-fuchsia-500 transition-colors leading-tight">
+                        {cert.name}
+                      </h3>
+                      {cert.date && (
+                        <span className="text-xs font-mono text-slate-400 dark:text-gray-500 border border-slate-200 dark:border-white/10 px-2 py-1 rounded-full shrink-0">
+                          {new Date(cert.date).getFullYear()}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-wider mt-auto">
+                      {cert.issuer}
+                    </h4>
                   </div>
-                  
-                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-fuchsia-500 transition-colors">
-                    {cert.name}
-                  </h3>
-                  <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-6 uppercase tracking-wider">
-                    {cert.issuer}
-                  </h4>
                   
                   <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/10">
                     {cert.url ? (

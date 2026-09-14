@@ -216,14 +216,25 @@ export default async function Home() {
                 <ScrollReveal key={cert.id} delay={idx * 0.1}>
                   <div className="group block h-full">
                     <SpotlightCard className="p-6 h-full flex flex-col justify-between interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
-                      <div className="mb-6">
-                        <div className="w-10 h-10 bg-slate-100 dark:bg-black text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-lg flex items-center justify-center mb-4">
-                          <Award className="w-5 h-5" />
-                        </div>
+                      <div className="mb-6 flex-grow flex flex-col">
+                        {cert.url && (cert.url.endsWith('.pdf') || cert.url.endsWith('.jpg') || cert.url.endsWith('.png') || cert.url.endsWith('.jpeg')) ? (
+                          <div className="w-full h-32 mb-4 rounded-xl overflow-hidden bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/10 relative">
+                            {cert.url.endsWith('.pdf') ? (
+                              <object data={`${cert.url}#toolbar=0&navpanes=0&scrollbar=0`} type="application/pdf" className="w-full h-[200%] -mt-10 pointer-events-none overflow-hidden" />
+                            ) : (
+                              <img src={cert.url} alt={cert.name} className="w-full h-full object-cover" />
+                            )}
+                            <div className="absolute inset-0 bg-transparent pointer-events-auto" />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 bg-slate-100 dark:bg-black text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-lg flex items-center justify-center mb-4 shrink-0">
+                            <Award className="w-5 h-5" />
+                          </div>
+                        )}
                         <h3 className="text-md font-bold text-slate-900 dark:text-white mb-1 leading-tight">
                           {cert.name}
                         </h3>
-                        <h4 className="text-xs font-mono text-slate-500 uppercase">
+                        <h4 className="text-xs font-mono text-slate-500 uppercase mt-auto">
                           {cert.issuer}
                         </h4>
                       </div>
@@ -248,6 +259,12 @@ export default async function Home() {
                   [AUCUNE CERTIFICATION]
                 </div>
               )}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <Link href="/certifications" className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group interactive">
+                Voir toutes les certifications <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </section>
 
