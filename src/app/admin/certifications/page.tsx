@@ -1,5 +1,7 @@
 import { getCertifications, createCertification, deleteCertification } from '@/actions/content';
 import ToggleForm from '@/components/ToggleForm';
+import { writeFile } from 'fs/promises';
+import { join } from 'path';
 
 export default async function AdminCertificationsPage() {
   const certifications = await getCertifications();
@@ -11,10 +13,22 @@ export default async function AdminCertificationsPage() {
     const dateStr = formData.get('date') as string;
     const date = dateStr ? new Date(dateStr) : undefined;
     
+    let finalUrl = formData.get('url') as string || null;
+    
+    const pdfFile = formData.get('pdfFile') as File | null;
+    if (pdfFile && pdfFile.size > 0) {
+      const bytes = await pdfFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const filename = `cert-${Date.now()}.${pdfFile.name.split('.').pop()}`;
+      const path = join(process.cwd(), 'public', 'uploads', filename);
+      await writeFile(path, buffer);
+      finalUrl = `/uploads/${filename}`;
+    }
+    
     await createCertification({
       name: formData.get('name') as string,
       issuer: formData.get('issuer') as string,
-      url: formData.get('url') as string || null,
+      url: finalUrl,
       ...(date ? { date } : {})
     });
   }
@@ -54,12 +68,21 @@ export default async function AdminCertificationsPage() {
               className="flex-1 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
             />
             
-            <input 
-              type="url" 
-              name="url" 
-              placeholder="URL de vérification (optionnel)" 
-              className="flex-1 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
-            />
+            <div className="flex-1 flex gap-2">
+              <input 
+                type="url" 
+                name="url" 
+                placeholder="URL (optionnel)" 
+                className="w-1/2 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
+              />
+              <input 
+                type="file" 
+                name="pdfFile"
+                accept="application/pdf, image/jpeg, image/png"
+                title="Ou uploader un PDF/Image"
+                className="w-1/2 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-fuchsia-50 file:text-fuchsia-700 hover:file:bg-fuchsia-100"
+              />
+            </div>
           </div>
 
           <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors md:self-end">

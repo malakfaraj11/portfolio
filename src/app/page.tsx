@@ -3,8 +3,8 @@ import { ScrollReveal } from '@/components/ScrollReveal';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { MagneticButton } from '@/components/MagneticButton';
 import ContactForm from '@/components/ContactForm';
-import { ArrowRight, Code2, Award, Mail } from 'lucide-react';
 import Link from 'next/link';
+import { ArrowRight, Code2, Mail, Award, Download, MapPin, Briefcase, Calendar } from 'lucide-react';
 import prisma from '@/lib/prisma';
 
 export default async function Home() {
@@ -32,225 +32,212 @@ export default async function Home() {
       <div className="min-h-screen font-sans relative">
         
         {/* HERO SECTION */}
-        <section id="about" className="relative z-10 min-h-[100svh] flex flex-col justify-center pt-24 pb-12 border-b border-slate-200 dark:border-white/5">
-          <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Left Content */}
-            <div className="lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+        <section id="about" className="relative z-10 min-h-[100svh] flex flex-col justify-center pt-32 pb-20 border-b border-slate-200 dark:border-white/5">
+          <div className="max-w-7xl mx-auto px-6 w-full pt-16 md:pt-32 pb-24">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               
-              {/* Available Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 mb-8 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-700 dark:text-gray-300 uppercase">{currentProfile.status}</span>
-              </div>
-
-              {/* Massive Title */}
-              <h1 className="text-7xl sm:text-8xl lg:text-[140px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-gray-500 mb-6 leading-[0.85] uppercase select-none">
-                {currentProfile.tagline.split(' ').map((word, i) => (
-                  <span key={i}>{word} <br/></span>
-                ))}
-              </h1>
-
-
-
-              {/* Bio */}
-              <p className="text-lg text-slate-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
-                {currentProfile.bio}
-              </p>
-
-              {/* CTA Buttons - Magnetic */}
-              <div className="flex flex-wrap gap-6 items-center">
-                <MagneticButton
-                  as="a"
-                  href="#contact" 
-                  className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform"
-                >
-                  Démarrer un projet
-                </MagneticButton>
-                {currentProfile.cvUrl && (
-                  <a href={currentProfile.cvUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-mono font-bold text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors underline decoration-dashed underline-offset-4 interactive">
-                    Ouvrir le CV
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Right Portrait Area */}
-            <div className="lg:col-span-5 relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 hidden lg:block">
-              <ScrollReveal delay={0.2} className="relative w-full h-150 rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 group">
-                {currentProfile.photoUrl ? (
-                  <img src={currentProfile.photoUrl} alt="Portrait" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 hover:scale-105" />
-                ) : (
-                  <div className="absolute inset-0 bg-slate-100 dark:bg-[#111111]" />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-black/90 to-transparent z-10 flex flex-col justify-end p-8 pointer-events-none">
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <div className="text-xs font-mono text-emerald-400 mb-2 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> STATUS: ONLINE<br/>
-                        UPLINK: STABLE
-                      </div>
-                    </div>
-                    <div className="text-xs font-mono text-slate-500 dark:text-gray-600">SYS.01 // REC</div>
-                  </div>
+              {/* Left Column: Text */}
+              <div className="animate-in fade-in slide-in-from-left-8 duration-1000 flex flex-col justify-center text-center lg:text-left">
+                {/* Available Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 mb-6 shadow-sm mx-auto lg:mx-0 w-fit">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-700 dark:text-gray-300 uppercase">{currentProfile.status}</span>
                 </div>
-              </ScrollReveal>
+
+                <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 leading-tight uppercase">
+                  {currentProfile.tagline}
+                </h1>
+                
+                <h2 className="text-2xl md:text-3xl text-slate-600 dark:text-gray-300 font-medium mb-6">
+                  {currentProfile.bio}
+                </h2>
+                
+                {/* CTA & Resume */}
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                  <Link href="#contact" className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform flex items-center gap-2 w-full sm:w-auto justify-center">
+                    Me contacter <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  {currentProfile.cvUrl && (
+                    <a href={currentProfile.cvUrl} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors flex items-center gap-2 w-full sm:w-auto justify-center group interactive">
+                      <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+                      Télécharger CV
+                    </a>
+                  )}
+                </div>
+              </div>
+              
+              {/* Right Column: Photo */}
+              <div className="animate-in fade-in slide-in-from-right-8 duration-1000 flex justify-center lg:justify-end mt-12 lg:mt-0 relative">
+                {/* Decorative background blur */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 bg-fuchsia-500/10 rounded-full blur-[80px] pointer-events-none" />
+                
+                {currentProfile.photoUrl ? (
+                  <div className="w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden border-8 border-white dark:border-[#111111] shadow-2xl relative z-10 bg-slate-100 dark:bg-[#1a1a1a]">
+                    <img src={currentProfile.photoUrl} alt="Portrait" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                  </div>
+                ) : (
+                  <div className="w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden border-8 border-white dark:border-[#111111] shadow-2xl relative z-10 bg-slate-100 dark:bg-[#1a1a1a] flex flex-col items-center justify-center text-slate-400">
+                    <Code2 className="w-16 h-16 mb-4 opacity-50" />
+                    <span className="font-mono text-sm tracking-widest uppercase">Espace Créatif</span>
+                  </div>
+                )}
+              </div>
+              
             </div>
           </div>
         </section>
 
         <main className="max-w-6xl mx-auto px-6 py-24 space-y-32 relative z-10">
           
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-white/10 to-transparent my-10" />
+
           {/* AT A GLANCE SECTION */}
-          <section className="flex flex-col items-center gap-12">
-            <div className="max-w-3xl text-center">
+          <section className="flex flex-col lg:flex-row items-center gap-12 pt-10">
+            <div className="flex-1 text-center lg:text-left">
               <ScrollReveal>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">
                   {currentProfile.visionTitle}
                 </h2>
-                <p className="text-lg md:text-xl text-slate-600 dark:text-gray-400 leading-relaxed mb-8 mx-auto">
+                <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed mb-8">
                   {currentProfile.visionText}
                 </p>
-                <div className="flex items-center justify-center gap-4 text-sm font-bold text-slate-900 dark:text-white">
-                  <div className="w-12 h-[1px] bg-fuchsia-500" />
-                  Localisation : {currentProfile.location}
-                  <div className="w-12 h-[1px] bg-fuchsia-500" />
+                <div className="flex items-center justify-center lg:justify-start gap-4 text-sm font-bold text-slate-900 dark:text-white uppercase tracking-widest">
+                  <div className="w-8 h-[1px] bg-slate-300 dark:bg-white/20" />
+                  {currentProfile.location}
                 </div>
               </ScrollReveal>
             </div>
             
-            <div className="grid grid-cols-1 gap-6 w-full max-w-2xl mx-auto">
-              {/* Bento Card 1: Current / Latest Experience */}
+            <div className="w-full lg:w-1/3">
               <ScrollReveal delay={0.2}>
-                <SpotlightCard className="p-8 h-full flex flex-col items-center text-center" spotlightColor="rgba(59, 130, 246, 0.15)">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">01</div>
-                  <div className="flex justify-center items-center gap-3 mb-4">
-                    <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">Expérience Actuelle</h3>
-                    <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20">Current</span>
+                <div className="p-8 h-full flex flex-col items-center text-center bg-slate-50 dark:bg-[#111111] border border-slate-200 dark:border-white/10 rounded-3xl">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white dark:bg-black border border-slate-200 dark:border-white/10 shadow-sm mb-4">
+                    <span className="w-4 h-4 rounded-full bg-blue-500 animate-pulse" />
                   </div>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                    {experiences.length > 0 ? `${experiences[0].titleFr} (${experiences[0].type})` : 'Développeur Indépendant'}
+                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-2">Actuellement</h3>
+                  <p className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                    {experiences.length > 0 ? `${experiences[0].titleFr}` : 'Développeur Indépendant'}
                   </p>
-                </SpotlightCard>
+                  <p className="text-slate-500 font-medium mt-1 text-sm">
+                    {experiences.length > 0 ? experiences[0].type : 'Mission Flexible'}
+                  </p>
+                </div>
               </ScrollReveal>
             </div>
           </section>
 
           {/* PROJECTS SECTION */}
-          <section id="projects">
+          <section id="projects" className="py-20 border-t border-slate-200 dark:border-white/5">
             <ScrollReveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
-                  <span className="text-blue-600 dark:text-blue-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Sélection de Projets</span>
-                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-xl leading-tight">
-                    Projets à travers plusieurs disciplines.
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                    Projets Récents
                   </h2>
+                  <p className="text-slate-600 dark:text-gray-400 max-w-xl">
+                    Une sélection de mes travaux récents dans le développement et l&apos;IA.
+                  </p>
                 </div>
-              </div>
-            </ScrollReveal>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.length > 0 ? projects.map((project, idx) => (
-                <ScrollReveal key={project.id} delay={idx * 0.1}>
-                  <div className="group block h-full">
-                    <SpotlightCard className="p-6 h-full flex flex-col interactive overflow-hidden border border-slate-200/50 dark:border-white/5 hover:border-fuchsia-500/30 transition-colors" spotlightColor="rgba(236, 72, 153, 0.15)">
-                      <div className="aspect-video w-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-black rounded-lg mb-6 overflow-hidden relative group/image">
-                        {project.imageUrl ? (
-                          <>
-                            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
-                          </>
-                        ) : (
-                          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 bg-slate-100 dark:bg-[#0a0a0a]">
-                            <Code2 className="w-8 h-8 mb-2 opacity-50" />
-                            <span className="font-mono text-xs tracking-widest uppercase font-bold">Workspace</span>
-                          </div>
-                        )}
-                        
-                        {project.linkUrl && (
-                          <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-[#161618]/90 backdrop-blur-md rounded-full text-[10px] font-bold tracking-widest uppercase text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 flex items-center gap-2 hover:bg-fuchsia-500 hover:text-white transition-colors">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live
-                          </a>
-                        )}
-                      </div>
-                      
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.categories.map(cat => (
-                          <span key={cat} className="text-[10px] font-mono font-bold px-2.5 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-300 rounded-full border border-slate-200/50 dark:border-white/5">
-                            {cat}
-                          </span>
-                        ))}
-                      </div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-fuchsia-500 transition-colors">{project.title}</h3>
-                      <h4 className="text-sm font-mono text-slate-500 mb-4">{project.subtitleFr}</h4>
-                      <p className="text-slate-600 dark:text-gray-400 mb-6 flex-grow">{project.resumeFr}</p>
-                      
-                      <div className="mt-4 pt-6 border-t border-slate-200 dark:border-white/10 flex justify-between items-center">
-                        <Link href={`/projects/${project.id}`} className="text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 flex items-center gap-2 group/link interactive">
-                          Voir les détails
-                          <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                        </Link>
-                      </div>
-                    </SpotlightCard>
-                  </div>
-                </ScrollReveal>
-              )) : (
-                <div className="col-span-full py-20 text-center text-slate-500 font-mono">
-                  [AUCUN PROJET - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
-                </div>
-              )}
-            </div>
-            
-            <div className="mt-16 text-center">
-              <Link href="/projects" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">
-                Voir tous les projets <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-          </section>
-
-          {/* CERTIFICATIONS SECTION */}
-          <section id="certifications">
-            <ScrollReveal>
-              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-                <div>
-                  <span className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Validation & Expertise</span>
-                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-xl leading-tight">
-                    Certifications Techniques.
-                  </h2>
-                </div>
+                <Link href="/projects" className="text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 flex items-center gap-2 group interactive">
+                  Voir tout <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </ScrollReveal>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {certifications.length > 0 ? certifications.map((cert: any, idx: number) => (
-                <ScrollReveal key={cert.id} delay={idx * 0.1} className="col-span-1">
+              {projects.length > 0 ? projects.map((project, idx) => (
+                <ScrollReveal key={project.id} delay={idx * 0.1}>
                   <div className="group block h-full">
-                    <SpotlightCard className="p-8 h-full flex flex-col interactive overflow-hidden border border-slate-200/50 dark:border-white/5 hover:border-fuchsia-500/30 transition-colors" spotlightColor="rgba(217, 70, 239, 0.15)">
-                      <div className="mb-6 flex justify-between items-start">
-                        <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 p-3 rounded-2xl">
-                          <Award className="w-8 h-8" />
-                        </div>
-                        {cert.date && (
-                          <span className="text-xs font-mono text-slate-400 dark:text-gray-500 border border-slate-200 dark:border-white/10 px-3 py-1 rounded-full">
-                            {new Date(cert.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
-                          </span>
+                    <SpotlightCard className="h-full flex flex-col interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
+                      
+                      {/* Image Container */}
+                      <div className="relative w-full aspect-video bg-slate-100 dark:bg-[#1a1a1a] overflow-hidden">
+                        {project.imageUrl ? (
+                          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        ) : (
+                          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-600">
+                            <Code2 className="w-8 h-8 opacity-30" />
+                          </div>
                         )}
                       </div>
                       
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-fuchsia-500 transition-colors">
-                        {cert.name}
-                      </h3>
-                      <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-6 uppercase tracking-wider">
-                        {cert.issuer}
-                      </h4>
+                      {/* Content Container */}
+                      <div className="p-6 flex flex-col flex-grow">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.categories.map(cat => (
+                            <span key={cat} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-300 rounded-md border border-slate-200 dark:border-white/10">
+                              {cat}
+                            </span>
+                          ))}
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{project.title}</h3>
+                        <h4 className="text-xs font-mono text-slate-500 mb-4">{project.subtitleFr}</h4>
+                        <p className="text-sm text-slate-600 dark:text-gray-400 mb-6 flex-grow">{project.resumeFr}</p>
+                        
+                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
+                          <Link href={`/projects/${project.id}`} className="text-sm font-bold text-slate-900 dark:text-white hover:text-fuchsia-500 transition-colors flex items-center gap-2">
+                            Détails
+                          </Link>
+                          {project.linkUrl && (
+                            <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+                              Voir le site ↗
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </SpotlightCard>
+                  </div>
+                </ScrollReveal>
+              )) : (
+                <div className="col-span-full py-20 text-center text-slate-500 font-mono">
+                  [AUCUN PROJET]
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* CERTIFICATIONS SECTION */}
+          <section id="certifications" className="py-20 border-t border-slate-200 dark:border-white/5">
+            <ScrollReveal>
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                    Certifications
+                  </h2>
+                  <p className="text-slate-600 dark:text-gray-400 max-w-xl">
+                    Validation continue de mes compétences techniques.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {certifications.length > 0 ? certifications.map((cert: any, idx: number) => (
+                <ScrollReveal key={cert.id} delay={idx * 0.1}>
+                  <div className="group block h-full">
+                    <SpotlightCard className="p-6 h-full flex flex-col justify-between interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
+                      <div className="mb-6">
+                        <div className="w-10 h-10 bg-slate-100 dark:bg-black text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-lg flex items-center justify-center mb-4">
+                          <Award className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-md font-bold text-slate-900 dark:text-white mb-1 leading-tight">
+                          {cert.name}
+                        </h3>
+                        <h4 className="text-xs font-mono text-slate-500 uppercase">
+                          {cert.issuer}
+                        </h4>
+                      </div>
                       
-                      <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/10">
-                        {cert.url ? (
-                          <a href={cert.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 interactive">
-                            Vérifier la certification <ArrowRight className="w-4 h-4" />
+                      <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
+                        {cert.date && (
+                          <span className="text-xs text-slate-400">
+                            {new Date(cert.date).getFullYear()}
+                          </span>
+                        )}
+                        {cert.url && (
+                          <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                            <ArrowRight className="w-4 h-4 -rotate-45" />
                           </a>
-                        ) : (
-                          <span className="text-sm font-bold text-slate-400 dark:text-gray-600">Certifié</span>
                         )}
                       </div>
                     </SpotlightCard>
@@ -258,123 +245,116 @@ export default async function Home() {
                 </ScrollReveal>
               )) : (
                 <div className="col-span-full py-20 text-center text-slate-500 font-mono">
-                  [AUCUNE CERTIFICATION - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
+                  [AUCUNE CERTIFICATION]
                 </div>
               )}
-            </div>
-            
-            <div className="mt-16 text-center">
-              <Link href="/certifications" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">
-                Voir toutes les certifications <ArrowRight className="w-5 h-5" />
-              </Link>
             </div>
           </section>
 
           {/* JOURNEY / TIMELINE SECTION */}
-          <section id="journey">
-             <ScrollReveal className="text-center mb-20">
-                <span className="text-indigo-600 dark:text-indigo-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Parcours</span>
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-2xl mx-auto leading-tight">
-                  Progression en développement et IA.
+          <section id="journey" className="py-20 border-t border-slate-200 dark:border-white/5">
+             <ScrollReveal className="mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                  Mon Parcours
                 </h2>
+                <p className="text-slate-600 dark:text-gray-400 max-w-xl">
+                  Expériences professionnelles et formations.
+                </p>
             </ScrollReveal>
             
-            <div className="max-w-3xl mx-auto space-y-12">
+            <div className="max-w-4xl border-l-2 border-slate-200 dark:border-white/10 ml-4 md:ml-8 pl-8 md:pl-12 space-y-12">
               {experiences.length > 0 ? experiences.map((exp, idx) => {
                 const now = new Date();
                 const isCurrent = !exp.endDate || exp.endDate > now;
                 return (
-                  <ScrollReveal key={exp.id} delay={idx * 0.1} className="relative pl-8 md:pl-0">
-                    <div className="md:grid md:grid-cols-5 md:gap-8 items-start">
-                      <div className="hidden md:block col-span-1 pt-1 text-right">
-                        <span className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 tracking-widest">
+                  <ScrollReveal key={exp.id} delay={idx * 0.1}>
+                    <div className="relative group">
+                      {/* Timeline Dot */}
+                      <div className={`absolute -left-[42px] md:-left-[58px] top-1.5 w-5 h-5 rounded-full border-4 border-slate-50 dark:border-[#0a0a0a] ${isCurrent ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-white/20'} transition-colors`} />
+                      
+                      <div className="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+                        <span className="text-xs font-mono font-bold text-slate-500 dark:text-gray-400 bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full w-fit">
                           {exp.startDate.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })} 
-                          &mdash; 
-                          {isCurrent ? 'En cours' : exp.endDate?.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
+                          &nbsp;&mdash;&nbsp;
+                          {isCurrent ? 'Présent' : exp.endDate?.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
+                        </span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                          {exp.type}
                         </span>
                       </div>
-                      <div className="col-span-4 relative">
-                        <div className={`absolute -left-[41px] md:-left-12 top-1.5 w-4 h-4 rounded-full bg-white dark:bg-[#0a0a0a] border-4 z-10 ${isCurrent ? 'border-white dark:border-white' : 'border-slate-300 dark:border-white/20'}`} />
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{exp.titleFr}</h3>
-                        <h4 className="text-fuchsia-600 dark:text-fuchsia-400 font-mono text-sm tracking-wider uppercase mb-4">{exp.type}</h4>
-                        <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-4">
-                          {exp.descFr}
-                        </p>
-                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{exp.titleFr}</h3>
+                      <p className="text-slate-600 dark:text-gray-400 leading-relaxed text-sm md:text-base">
+                        {exp.descFr}
+                      </p>
                     </div>
                   </ScrollReveal>
                 );
               }) : (
-                <div className="text-center text-slate-500 font-mono py-10">
-                  [AUCUNE EXPÉRIENCE - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
+                <div className="text-center text-slate-500 font-mono py-20">
+                  [AUCUNE EXPÉRIENCE]
                 </div>
               )}
             </div>
-            
-            
           </section>
 
           {/* CONTACT SECTION */}
-          <section id="contact" className="pt-12">
-            <ScrollReveal>
-              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-                <div>
-                  <span className="text-emerald-600 dark:text-emerald-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Contact</span>
-                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-xl leading-tight">
-                    Travaillons ensemble.
+          <section id="contact" className="py-20 border-t border-slate-200 dark:border-white/5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              
+              {/* Left: Text & Socials */}
+              <div>
+                <ScrollReveal>
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                    Me Contacter
                   </h2>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-5 space-y-8">
-                <ScrollReveal delay={0.1}>
-                  <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed mb-8">
-                    Vous avez un projet en tête, une proposition de mission ou simplement envie d&apos;échanger sur les dernières technologies web et IA ? N&apos;hésitez pas à me contacter via le formulaire ou directement sur mes réseaux.
+                  <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed mb-10">
+                    Vous avez un projet en tête ou une proposition de mission ? N&apos;hésitez pas à m&apos;écrire via le formulaire ou sur mes réseaux.
                   </p>
                   
                   <div className="space-y-4">
-                    <a href="mailto:farajmalak11@gmail.com" className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-500/50 transition-colors group interactive">
-                      <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
-                        <Mail className="w-6 h-6" />
+                    <a href="mailto:farajmalak11@gmail.com" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors group interactive">
+                      <div className="bg-white dark:bg-black p-3 rounded-xl border border-slate-200 dark:border-white/10 group-hover:scale-110 transition-transform shadow-sm">
+                        <Mail className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                       </div>
                       <div>
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">Email</h4>
-                        <p className="text-sm text-slate-500 dark:text-gray-400 font-mono mt-1">farajmalak11@gmail.com</p>
+                        <p className="text-xs text-slate-500 font-mono mt-1">farajmalak11@gmail.com</p>
                       </div>
                     </a>
                     
-                    <a href="https://www.linkedin.com/in/malak-faraj-2953bb2a6/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-500/50 transition-colors group interactive">
-                      <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    <a href="https://www.linkedin.com/in/malak-faraj-2953bb2a6/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors group interactive">
+                      <div className="bg-white dark:bg-black p-3 rounded-xl border border-slate-200 dark:border-white/10 group-hover:scale-110 transition-transform shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-700 dark:text-slate-300"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                       </div>
                       <div>
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">LinkedIn</h4>
-                        <p className="text-sm text-slate-500 dark:text-gray-400 font-mono mt-1">/in/malak-faraj-2953bb2a6</p>
+                        <p className="text-xs text-slate-500 font-mono mt-1">/in/malak-faraj-2953bb2a6</p>
                       </div>
                     </a>
                     
-                    <a href="https://github.com/malakfaraj11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-500/50 transition-colors group interactive">
-                      <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    <a href="https://github.com/malakfaraj11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors group interactive">
+                      <div className="bg-white dark:bg-black p-3 rounded-xl border border-slate-200 dark:border-white/10 group-hover:scale-110 transition-transform shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-700 dark:text-slate-300"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                       </div>
                       <div>
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">GitHub</h4>
-                        <p className="text-sm text-slate-500 dark:text-gray-400 font-mono mt-1">@malakfaraj11</p>
+                        <p className="text-xs text-slate-500 font-mono mt-1">@malakfaraj11</p>
                       </div>
                     </a>
                   </div>
                 </ScrollReveal>
               </div>
               
-              <div className="lg:col-span-7">
+              {/* Right: Form */}
+              <div>
                 <ScrollReveal delay={0.2} className="h-full">
-                  <SpotlightCard className="p-8 h-full" spotlightColor="rgba(217, 70, 239, 0.1)">
+                  <div className="bg-slate-50 dark:bg-[#111111] border border-slate-200 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-sm h-full">
                     <ContactForm />
-                  </SpotlightCard>
+                  </div>
                 </ScrollReveal>
               </div>
+              
             </div>
           </section>
 
