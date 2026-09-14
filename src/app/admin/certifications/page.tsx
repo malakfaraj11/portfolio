@@ -36,7 +36,7 @@ export default async function AdminCertificationsPage() {
               name="name" 
               placeholder="Nom (ex: AWS Certified Developer)" 
               required 
-              className="flex-1 bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" 
+              className="flex-1 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" 
             />
             
             <input 
@@ -44,21 +44,21 @@ export default async function AdminCertificationsPage() {
               name="issuer" 
               placeholder="Organisme (ex: Amazon Web Services)" 
               required 
-              className="flex-1 bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
+              className="flex-1 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
             />
           </div>
           <div className="flex flex-col md:flex-row gap-4">
             <input 
               type="date" 
               name="date" 
-              className="flex-1 bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
+              className="flex-1 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
             />
             
             <input 
               type="url" 
               name="url" 
               placeholder="URL de vérification (optionnel)" 
-              className="flex-1 bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
+              className="flex-1 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"
             />
           </div>
 
@@ -74,7 +74,7 @@ export default async function AdminCertificationsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {certifications.map((cert: any) => (
-          <div key={cert.id} className="bg-white dark:bg-[#151518] p-5 rounded-xl border border-slate-200 dark:border-white/10 flex justify-between items-start group">
+          <div key={cert.id} className="bg-white dark:bg-[#111111] p-5 rounded-xl border border-slate-200 dark:border-white/10 flex justify-between items-start group">
             <div>
               <span className="text-[10px] font-mono font-bold text-fuchsia-500 uppercase tracking-widest bg-fuchsia-500/10 px-2 py-1 rounded inline-block mb-2">
                 {cert.issuer}
@@ -89,7 +89,7 @@ export default async function AdminCertificationsPage() {
             </div>
             <form action={handleDelete}>
               <input type="hidden" name="id" value={cert.id} />
-              <button type="submit" className="text-slate-400 hover:text-red-500 text-sm font-bold opacity-50 group-hover:opacity-100 transition-opacity p-2 rounded-full hover:bg-red-500/10">
+              <button type="submit" className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-4 rounded-lg border border-transparent dark:border-white/10 hover:bg-slate-800 dark:hover:bg-gray-100 transition-colors p-2 rounded-full hover:bg-red-500/10">
                 ✕
               </button>
             </form>

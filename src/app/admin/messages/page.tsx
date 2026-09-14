@@ -21,7 +21,7 @@ export default async function AdminMessages() {
       </div>
 
       {messages.length === 0 ? (
-        <div className="bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+        <div className="bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
           <Mail className="w-12 h-12 text-slate-400 dark:text-gray-600 mb-4" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Aucun message</h3>
           <p className="text-slate-500 dark:text-gray-400">Votre boîte de réception est vide pour le moment.</p>

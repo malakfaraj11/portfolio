@@ -31,7 +31,7 @@ export default async function AdminExperiencePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Type *</label>
-              <select name="type" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none">
+              <select name="type" required className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none">
                 <option value="Expérience">Expérience</option>
                 <option value="Organisation">Organisation</option>
                 <option value="Formation">Formation</option>
@@ -39,30 +39,30 @@ export default async function AdminExperiencePage() {
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre FR *</label>
-              <input type="text" name="titleFr" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="text" name="titleFr" required className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre EN *</label>
-              <input type="text" name="titleEn" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="text" name="titleEn" required className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de début * (jj/mm/aaaa)</label>
-              <input type="date" name="startDate" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="date" name="startDate" required className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Date de fin prévue ou effective (jj/mm/aaaa) (Laisser vide si en cours)</label>
-              <input type="date" name="endDate" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
+              <input type="date" name="endDate" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none" />
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description FR</label>
-              <textarea name="descFr" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
+              <textarea name="descFr" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Description EN</label>
-              <textarea name="descEn" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
+              <textarea name="descEn" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-fuchsia-500 focus:outline-none"></textarea>
             </div>
           </div>
 
@@ -80,7 +80,7 @@ export default async function AdminExperiencePage() {
 
       <div className="space-y-4">
         {experiences.map((exp) => (
-          <div key={exp.id} className="bg-white dark:bg-[#151518] p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-between items-start group">
+          <div key={exp.id} className="bg-white dark:bg-[#111111] p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-between items-start group">
             <div className="flex-1 pr-6">
               <div className="flex items-center gap-3 mb-1">
                 <h3 className="font-bold text-xl dark:text-white">{exp.titleFr}</h3>
@@ -95,7 +95,7 @@ export default async function AdminExperiencePage() {
             </div>
             <form action={handleDelete}>
               <input type="hidden" name="id" value={exp.id} />
-              <button type="submit" className="text-slate-400 hover:text-red-500 text-sm font-bold opacity-50 group-hover:opacity-100 transition-opacity p-2 rounded-full hover:bg-red-500/10" title="Supprimer">
+              <button type="submit" className="textbg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-4 rounded-lg border border-transparent dark:border-white/10 hover:bg-slate-800 dark:hover:bg-gray-100 transition-colors p-2 rounded-full hover:bg-red-500/10" title="Supprimer">
                 ✕
               </button>
             </form>

@@ -9,9 +9,9 @@ export default function AdminLayout({
   return (
     <div className="h-dvh flex flex-col md:flex-row overflow-hidden relative">
       {/* Sidebar */}
-      <aside className="w-full md:w-64 shrink-0 bg-white/70 dark:bg-[#0f0f11]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 flex flex-col z-20">
-        <div className="p-4 md:p-6 border-b border-slate-200 dark:border-white/5 flex justify-between items-center">
-          <h2 className="text-lg md:text-xl font-black bg-gradient-to-r from-blue-600 to-fuchsia-500 bg-clip-text text-transparent uppercase tracking-wider">Portfolio Admin</h2>
+      <aside className="w-full md:w-64 shrink-0 bg-slate-50 dark:bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/10 flex flex-col z-20">
+        <div className="p-4 md:p-6 border-b border-slate-200 dark:border-white/10 flex justify-between items-center">
+          <h2 className="text-lg md:text-xl font-black text-slate-900 dark:text-white uppercase tracking-wider">Portfolio Admin</h2>
           <Link
             href="/"
             className="md:hidden text-[10px] font-mono tracking-widest text-blue-600 dark:text-blue-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 border border-blue-500/20 px-2 py-1 rounded"

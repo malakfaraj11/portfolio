@@ -59,95 +59,95 @@ export default async function AdminProjectsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="col-span-full">
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Titre *</label>
-              <input type="text" name="title" required className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="text" name="title" required className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
 
             {/* Sous-titres */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Sous-titre FR</label>
-              <input type="text" name="subtitleFr" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="text" name="subtitleFr" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Sous-titre EN</label>
-              <input type="text" name="subtitleEn" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="text" name="subtitleEn" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
 
             {/* Résumé */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Résumé court FR</label>
-              <textarea name="resumeFr" rows={3} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="resumeFr" rows={3} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Résumé court EN</label>
-              <textarea name="resumeEn" rows={3} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="resumeEn" rows={3} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
 
             {/* Problème */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Le Problème FR</label>
-              <textarea name="problemFr" rows={3} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="problemFr" rows={3} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Le Problème EN</label>
-              <textarea name="problemEn" rows={3} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="problemEn" rows={3} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
 
             {/* Objectifs */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Objectifs FR (un par ligne)</label>
-              <textarea name="goalsFr" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="goalsFr" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Objectifs EN (un par ligne)</label>
-              <textarea name="goalsEn" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="goalsEn" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
 
             {/* Solution */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">La Solution FR</label>
-              <textarea name="solutionFr" rows={3} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="solutionFr" rows={3} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">La Solution EN</label>
-              <textarea name="solutionEn" rows={3} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="solutionEn" rows={3} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
 
             {/* Architecture */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Architecture FR (une par ligne)</label>
-              <textarea name="archFr" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="archFr" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Architecture EN (une par ligne)</label>
-              <textarea name="archEn" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="archEn" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
 
             {/* Résultats */}
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Résultats FR (un par ligne)</label>
-              <textarea name="resultsFr" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="resultsFr" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Résultats EN (un par ligne)</label>
-              <textarea name="resultsEn" rows={4} className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
+              <textarea name="resultsEn" rows={4} className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500"></textarea>
             </div>
 
             {/* Links and Metadata */}
             <div className="col-span-full">
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Catégories Technologies (séparées par des virgules)</label>
-              <input type="text" name="categories" placeholder="React, Node.js, Prisma" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="text" name="categories" placeholder="React, Node.js, Prisma" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
             <div className="col-span-full">
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Lien GitHub</label>
-              <input type="url" name="githubUrl" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="url" name="githubUrl" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
             <div className="col-span-full">
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Lien Live (URL) - Optionnel</label>
-              <input type="url" name="linkUrl" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="url" name="linkUrl" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
             <div className="col-span-full">
               <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Image de couverture (JPG/PNG) - Optionnelle</label>
-              <input type="file" name="imageFile" accept="image/png, image/jpeg, image/webp" className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
+              <input type="file" name="imageFile" accept="image/png, image/jpeg, image/webp" className="w-full bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500" />
             </div>
           </div>
 
@@ -165,7 +165,7 @@ export default async function AdminProjectsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map((project) => (
-          <div key={project.id} className="bg-white dark:bg-[#151518] p-5 rounded-xl border border-slate-200 dark:border-white/10 flex flex-col gap-4 group">
+          <div key={project.id} className="bg-white dark:bg-[#111111] p-5 rounded-xl border border-slate-200 dark:border-white/10 flex flex-col gap-4 group">
             {project.imageUrl && (
               <div className="w-full h-32 bg-slate-100 dark:bg-[#161618] rounded-lg overflow-hidden">
                 <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
@@ -178,7 +178,7 @@ export default async function AdminProjectsPage() {
               </div>
               <form action={handleDelete}>
                 <input type="hidden" name="id" value={project.id} />
-                <button type="submit" className="text-slate-400 hover:text-red-500 text-sm font-bold opacity-50 group-hover:opacity-100 transition-opacity p-2 rounded-full hover:bg-red-500/10" title="Supprimer">
+                <button type="submit" className="textbg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-4 rounded-lg border border-transparent dark:border-white/10 hover:bg-slate-800 dark:hover:bg-gray-100 transition-colors p-2 rounded-full hover:bg-red-500/10" title="Supprimer">
                   ✕
                 </button>
               </form>

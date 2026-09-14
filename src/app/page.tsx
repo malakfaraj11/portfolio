@@ -39,9 +39,9 @@ export default async function Home() {
             <div className="lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-1000">
               
               {/* Available Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 mb-8 backdrop-blur-md shadow-sm">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 mb-8 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-bold tracking-[0.2em] text-emerald-700 dark:text-emerald-400 uppercase">{currentProfile.status}</span>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-700 dark:text-gray-300 uppercase">{currentProfile.status}</span>
               </div>
 
               {/* Massive Title */}
@@ -77,11 +77,11 @@ export default async function Home() {
 
             {/* Right Portrait Area */}
             <div className="lg:col-span-5 relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 hidden lg:block">
-              <ScrollReveal delay={0.2} className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 group">
+              <ScrollReveal delay={0.2} className="relative w-full h-150 rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 group">
                 {currentProfile.photoUrl ? (
                   <img src={currentProfile.photoUrl} alt="Portrait" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 hover:scale-105" />
                 ) : (
-                  <div className="absolute inset-0 bg-slate-900 dark:bg-[#0f0f11]/90" />
+                  <div className="absolute inset-0 bg-slate-100 dark:bg-[#111111]" />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-black/90 to-transparent z-10 flex flex-col justify-end p-8 pointer-events-none">
                   <div className="flex justify-between items-end">
@@ -161,7 +161,7 @@ export default async function Home() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500" />
                           </>
                         ) : (
-                          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]">
+                          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 bg-slate-100 dark:bg-[#0a0a0a]">
                             <Code2 className="w-8 h-8 mb-2 opacity-50" />
                             <span className="font-mono text-xs tracking-widest uppercase font-bold">Workspace</span>
                           </div>
@@ -227,7 +227,7 @@ export default async function Home() {
                   <div className="group block h-full">
                     <SpotlightCard className="p-8 h-full flex flex-col interactive overflow-hidden border border-slate-200/50 dark:border-white/5 hover:border-fuchsia-500/30 transition-colors" spotlightColor="rgba(217, 70, 239, 0.15)">
                       <div className="mb-6 flex justify-between items-start">
-                        <div className="bg-fuchsia-500/10 text-fuchsia-500 p-3 rounded-2xl">
+                        <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 p-3 rounded-2xl">
                           <Award className="w-8 h-8" />
                         </div>
                         {cert.date && (
@@ -294,7 +294,7 @@ export default async function Home() {
                         </span>
                       </div>
                       <div className="col-span-4 relative">
-                        <div className={`absolute -left-[41px] md:-left-12 top-1.5 w-4 h-4 rounded-full bg-white dark:bg-[#0f0f11] border-4 z-10 ${isCurrent ? 'border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]' : 'border-fuchsia-500 shadow-[0_0_15px_rgba(217,70,239,0.5)]'}`} />
+                        <div className={`absolute -left-[41px] md:-left-12 top-1.5 w-4 h-4 rounded-full bg-white dark:bg-[#0a0a0a] border-4 z-10 ${isCurrent ? 'border-white dark:border-white' : 'border-slate-300 dark:border-white/20'}`} />
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{exp.titleFr}</h3>
                         <h4 className="text-fuchsia-600 dark:text-fuchsia-400 font-mono text-sm tracking-wider uppercase mb-4">{exp.type}</h4>
                         <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-4">
@@ -335,8 +335,8 @@ export default async function Home() {
                   </p>
                   
                   <div className="space-y-4">
-                    <a href="mailto:farajmalak11@gmail.com" className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-[#161618] transition-colors group interactive">
-                      <div className="bg-emerald-500/10 text-emerald-500 p-3 rounded-xl group-hover:scale-110 transition-transform">
+                    <a href="mailto:farajmalak11@gmail.com" className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-500/50 transition-colors group interactive">
+                      <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
                         <Mail className="w-6 h-6" />
                       </div>
                       <div>
@@ -345,8 +345,8 @@ export default async function Home() {
                       </div>
                     </a>
                     
-                    <a href="https://www.linkedin.com/in/malak-faraj-2953bb2a6/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-[#161618] transition-colors group interactive">
-                      <div className="bg-blue-500/10 text-blue-500 p-3 rounded-xl group-hover:scale-110 transition-transform">
+                    <a href="https://www.linkedin.com/in/malak-faraj-2953bb2a6/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-500/50 transition-colors group interactive">
+                      <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                       </div>
                       <div>
@@ -355,8 +355,8 @@ export default async function Home() {
                       </div>
                     </a>
                     
-                    <a href="https://github.com/malakfaraj11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-[#161618] transition-colors group interactive">
-                      <div className="bg-slate-900/10 dark:bg-white/10 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
+                    <a href="https://github.com/malakfaraj11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-500/50 transition-colors group interactive">
+                      <div className="bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                       </div>
                       <div>
