@@ -39,7 +39,7 @@ export default async function Home() {
               {/* Left Column: Text */}
               <div className="animate-in fade-in slide-in-from-left-8 duration-1000 flex flex-col justify-center text-center lg:text-left">
                 {/* Available Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 mb-6 shadow-sm mx-auto lg:mx-0 w-fit">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 mb-6 shadow-sm mx-auto lg:mx-0 w-fit">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-[10px] font-bold tracking-[0.2em] text-slate-700 dark:text-gray-300 uppercase">{currentProfile.status}</span>
                 </div>
@@ -58,7 +58,7 @@ export default async function Home() {
                     Me contacter <ArrowRight className="w-4 h-4" />
                   </Link>
                   {currentProfile.cvUrl && (
-                    <a href={currentProfile.cvUrl} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors flex items-center gap-2 w-full sm:w-auto justify-center group interactive">
+                    <a href={currentProfile.cvUrl} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-slate-400 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors flex items-center gap-2 w-full sm:w-auto justify-center group interactive">
                       <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
                       Télécharger CV
                     </a>
@@ -110,8 +110,8 @@ export default async function Home() {
             
             <div className="w-full lg:w-1/3">
               <ScrollReveal delay={0.2}>
-                <div className="p-8 h-full flex flex-col items-center text-center bg-slate-50 dark:bg-[#111111] border border-slate-200 dark:border-white/10 rounded-3xl">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white dark:bg-black border border-slate-200 dark:border-white/10 shadow-sm mb-4">
+                <div className="p-8 h-full flex flex-col items-center text-center bg-slate-50 dark:bg-[#111111] border border-slate-300 dark:border-white/10 rounded-3xl shadow-sm">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white dark:bg-black border border-slate-300 dark:border-white/10 shadow-sm mb-4">
                     <span className="w-4 h-4 rounded-full bg-blue-500 animate-pulse" />
                   </div>
                   <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider mb-2">Actuellement</h3>
@@ -127,7 +127,7 @@ export default async function Home() {
           </section>
 
           {/* PROJECTS SECTION */}
-          <section id="projects" className="py-20 border-t border-slate-200 dark:border-white/5">
+          <section id="projects" className="py-20 border-t border-slate-300 dark:border-white/5">
             <ScrollReveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
@@ -145,7 +145,7 @@ export default async function Home() {
               {projects.length > 0 ? projects.map((project, idx) => (
                 <ScrollReveal key={project.id} delay={idx * 0.1}>
                   <div className="group block h-full">
-                    <SpotlightCard className="h-full flex flex-col interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
+                    <SpotlightCard className="h-full flex flex-col interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
                       
                       {/* Image Container */}
                       <div className="relative w-full aspect-video bg-slate-100 dark:bg-[#1a1a1a] overflow-hidden">
@@ -162,7 +162,7 @@ export default async function Home() {
                       <div className="p-6 flex flex-col flex-grow">
                         <div className="flex flex-wrap gap-2 mb-4">
                           {project.categories.map(cat => (
-                            <span key={cat} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-300 rounded-md border border-slate-200 dark:border-white/10">
+                            <span key={cat} className="text-[10px] font-mono font-bold px-2 py-1 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-300 rounded-md border border-slate-300 dark:border-white/10">
                               {cat}
                             </span>
                           ))}
@@ -171,7 +171,7 @@ export default async function Home() {
                         <h4 className="text-xs font-mono text-slate-500 mb-4">{project.subtitleFr}</h4>
                         <p className="text-sm text-slate-600 dark:text-gray-400 mb-6 flex-grow">{project.resumeFr}</p>
                         
-                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
+                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-200 dark:border-white/5">
                           <Link href={`/projects/${project.id}`} className="text-sm font-bold text-slate-900 dark:text-white hover:text-fuchsia-500 transition-colors flex items-center gap-2">
                             Détails
                           </Link>
@@ -193,14 +193,14 @@ export default async function Home() {
             </div>
             
             <div className="mt-16 text-center">
-              <Link href="/projects" className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group interactive">
+              <Link href="/projects" className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border border-slate-400 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group interactive">
                 Voir tous les projets <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </section>
 
           {/* CERTIFICATIONS SECTION */}
-          <section id="certifications" className="py-20 border-t border-slate-200 dark:border-white/5">
+          <section id="certifications" className="py-20 border-t border-slate-300 dark:border-white/5">
             <ScrollReveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
@@ -218,10 +218,10 @@ export default async function Home() {
               {certifications.length > 0 ? certifications.map((cert: any, idx: number) => (
                 <ScrollReveal key={cert.id} delay={idx * 0.1}>
                   <div className="group block h-full">
-                    <SpotlightCard className="p-6 h-full flex flex-col justify-between interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
+                    <SpotlightCard className="p-6 h-full flex flex-col justify-between interactive overflow-hidden bg-white dark:bg-[#111111] border border-slate-300 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/20 transition-colors rounded-2xl" spotlightColor="rgba(255, 255, 255, 0.05)">
                       <div className="mb-6 flex-grow flex flex-col">
                         {cert.url && (cert.url.endsWith('.pdf') || cert.url.endsWith('.jpg') || cert.url.endsWith('.png') || cert.url.endsWith('.jpeg')) ? (
-                          <div className="w-full h-32 mb-4 rounded-xl overflow-hidden bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/10 relative">
+                          <div className="w-full h-32 mb-4 rounded-xl overflow-hidden bg-slate-100 dark:bg-black border border-slate-300 dark:border-white/10 relative">
                             {cert.url.endsWith('.pdf') ? (
                               <object data={`${cert.url}#toolbar=0&navpanes=0&scrollbar=0`} type="application/pdf" className="w-full h-[200%] -mt-10 pointer-events-none overflow-hidden" />
                             ) : (
@@ -230,7 +230,7 @@ export default async function Home() {
                             <div className="absolute inset-0 bg-transparent pointer-events-auto" />
                           </div>
                         ) : (
-                          <div className="w-10 h-10 bg-slate-100 dark:bg-black text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 rounded-lg flex items-center justify-center mb-4 shrink-0">
+                          <div className="w-10 h-10 bg-slate-100 dark:bg-black text-slate-900 dark:text-white border border-slate-300 dark:border-white/10 rounded-lg flex items-center justify-center mb-4 shrink-0">
                             <Award className="w-5 h-5" />
                           </div>
                         )}
@@ -242,7 +242,7 @@ export default async function Home() {
                         </h4>
                       </div>
                       
-                      <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
+                      <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-white/5">
                         {cert.date && (
                           <span className="text-xs text-slate-400">
                             {new Date(cert.date).getFullYear()}

@@ -15,7 +15,7 @@ export default async function CertificationsPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-100 via-white to-white dark:from-fuchsia-900/10 dark:via-[#0f0f11] dark:to-[#0f0f11]" />
         <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
           <ScrollReveal>
-            <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors mb-8 group bg-slate-100 dark:bg-[#161618] px-4 py-2 rounded-full border border-slate-200 dark:border-white/10">
+            <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors mb-8 group bg-slate-100 dark:bg-[#161618] px-4 py-2 rounded-full border border-slate-300 dark:border-white/10">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Retour à l&apos;accueil
             </Link>
@@ -37,12 +37,12 @@ export default async function CertificationsPage() {
             <ScrollReveal key={cert.id} delay={idx * 0.1} className="col-span-1">
               <TiltCard className="group block h-full" intensity={10}>
                 <SpotlightCard 
-                  className="h-full flex flex-col interactive overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-[#161618] hover:border-slate-300 dark:hover:border-white/20 transition-all duration-500 rounded-[32px] p-8" 
+                  className="h-full flex flex-col interactive overflow-hidden border border-slate-300 dark:border-white/10 bg-white dark:bg-[#161618] hover:border-slate-400 dark:hover:border-white/20 transition-all duration-500 rounded-[32px] p-8" 
                   spotlightColor="rgba(150, 150, 150, 0.1)"
                 >
                   <div className="mb-6 flex-grow flex flex-col">
                     {cert.url && (cert.url.endsWith('.pdf') || cert.url.endsWith('.jpg') || cert.url.endsWith('.png') || cert.url.endsWith('.jpeg')) ? (
-                      <div className="w-full h-48 mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-black border border-slate-200 dark:border-white/10 relative">
+                      <div className="w-full h-48 mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-black border border-slate-300 dark:border-white/10 relative">
                         {cert.url.endsWith('.pdf') ? (
                           <object data={`${cert.url}#toolbar=0&navpanes=0&scrollbar=0`} type="application/pdf" className="w-full h-[200%] -mt-10 pointer-events-none overflow-hidden" />
                         ) : (
@@ -61,7 +61,7 @@ export default async function CertificationsPage() {
                         {cert.name}
                       </h3>
                       {cert.date && (
-                        <span className="text-xs font-mono text-slate-400 dark:text-gray-500 border border-slate-200 dark:border-white/10 px-2 py-1 rounded-full shrink-0">
+                        <span className="text-xs font-mono text-slate-400 dark:text-gray-500 border border-slate-300 dark:border-white/10 px-2 py-1 rounded-full shrink-0">
                           {new Date(cert.date).getFullYear()}
                         </span>
                       )}
@@ -72,7 +72,7 @@ export default async function CertificationsPage() {
                     </h4>
                   </div>
                   
-                  <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/10">
+                  <div className="mt-auto pt-6 border-t border-slate-200 dark:border-white/10">
                     {cert.url ? (
                       <a href={cert.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 interactive">
                         Vérifier la certification

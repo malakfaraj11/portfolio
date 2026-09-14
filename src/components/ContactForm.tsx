@@ -66,7 +66,7 @@ export default function ContactForm() {
             name="name" 
             required 
             placeholder="John Doe"
-            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm"
+            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm"
           />
         </div>
         <div>
@@ -77,7 +77,7 @@ export default function ContactForm() {
             name="email" 
             required 
             placeholder="john@example.com"
-            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm"
+            className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm"
           />
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function ContactForm() {
           name="subject" 
           required 
           placeholder="Proposition de mission, opportunité..."
-          className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm"
+          className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm"
         />
       </div>
 
@@ -102,7 +102,7 @@ export default function ContactForm() {
           required 
           rows={5}
           placeholder="Bonjour Malak, je vous contacte pour..."
-          className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm resize-y"
+          className="w-full bg-slate-50 dark:bg-[#161618] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all shadow-sm resize-y"
         />
       </div>
 
