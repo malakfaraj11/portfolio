@@ -138,9 +138,6 @@ export default async function Home() {
                     Une sélection de mes travaux récents dans le développement et l&apos;IA.
                   </p>
                 </div>
-                <Link href="/projects" className="text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 flex items-center gap-2 group interactive">
-                  Voir tout <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
               </div>
             </ScrollReveal>
             
@@ -193,6 +190,12 @@ export default async function Home() {
                   [AUCUN PROJET]
                 </div>
               )}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <Link href="/projects" className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white rounded-full font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group interactive">
+                Voir tous les projets <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </section>
 

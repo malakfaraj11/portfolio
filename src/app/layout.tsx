@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <NoiseOverlay />
           {/* Clean Vercel-style Background */}
-          <div className="fixed inset-0 pointer-events-none -z-50 bg-white dark:bg-[#0a0a0a] transition-colors duration-500">
+          <div className="fixed inset-0 pointer-events-none -z-50 bg-[#FAFAFA] dark:bg-[#0a0a0a] transition-colors duration-500">
             {/* Subtle noise texture */}
             <div 
               className="absolute inset-0 opacity-[0.03] dark:opacity-[0.02] mix-blend-overlay" 
