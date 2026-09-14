@@ -2,7 +2,7 @@ import PreloaderWrapper from '@/components/PreloaderWrapper';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { MagneticButton } from '@/components/MagneticButton';
-import { Briefcase, GraduationCap, ArrowRight, Code2 } from 'lucide-react';
+import { Briefcase, GraduationCap, ArrowRight, Code2, Award } from 'lucide-react';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 
@@ -118,47 +118,16 @@ export default async function Home() {
               </ScrollReveal>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto">
-              {/* Bento Card 1: Certifications */}
-              <ScrollReveal delay={0.1}>
-                <SpotlightCard className="p-8 h-full flex flex-col">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">01</div>
-                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-4 uppercase tracking-wider">Certifications</h3>
-                  <div className="flex flex-col gap-4 flex-grow">
-                    {certifications.map((cert: any) => (
-                      <div key={cert.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-2">
-                        <div>
-                          <span className="text-xs font-bold text-slate-900 dark:text-white block">{cert.name}</span>
-                          <span className="text-[10px] text-slate-500">{cert.issuer}</span>
-                        </div>
-                        {cert.url && (
-                          <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline">
-                            Voir
-                          </a>
-                        )}
-                      </div>
-                    ))}
-                    {certifications.length === 0 && <span className="text-xs text-slate-500">Ajouter des certifications dans l&apos;admin</span>}
-                  </div>
-                  {certifications.length > 0 && (
-                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5">
-                      <Link href="/certifications" className="text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 flex items-center gap-2 interactive">
-                        Voir toutes les certifications <ArrowRight className="w-3 h-3" />
-                      </Link>
-                    </div>
-                  )}
-                </SpotlightCard>
-              </ScrollReveal>
-
-              {/* Bento Card 2: Current / Latest Experience */}
+            <div className="grid grid-cols-1 gap-6 w-full max-w-2xl mx-auto">
+              {/* Bento Card 1: Current / Latest Experience */}
               <ScrollReveal delay={0.2}>
-                <SpotlightCard className="p-8 h-full" spotlightColor="rgba(59, 130, 246, 0.15)">
-                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">02</div>
-                  <div className="flex items-center gap-3 mb-2">
+                <SpotlightCard className="p-8 h-full flex flex-col items-center text-center" spotlightColor="rgba(59, 130, 246, 0.15)">
+                  <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">01</div>
+                  <div className="flex justify-center items-center gap-3 mb-4">
                     <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">Expérience Actuelle</h3>
                     <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20">Current</span>
                   </div>
-                  <p className="text-xl font-bold text-slate-900 dark:text-white mt-4">
+                  <p className="text-2xl font-bold text-slate-900 dark:text-white">
                     {experiences.length > 0 ? `${experiences[0].titleFr} (${experiences[0].type})` : 'Développeur Indépendant'}
                   </p>
                 </SpotlightCard>
@@ -234,6 +203,68 @@ export default async function Home() {
             <div className="mt-16 text-center">
               <Link href="/projects" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">
                 Voir tous les projets <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </section>
+
+          {/* CERTIFICATIONS SECTION */}
+          <section id="certifications">
+            <ScrollReveal>
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                  <span className="text-fuchsia-600 dark:text-fuchsia-500 font-mono text-xs font-bold tracking-widest uppercase mb-4 block">Validation & Expertise</span>
+                  <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white max-w-xl leading-tight">
+                    Certifications Techniques.
+                  </h2>
+                </div>
+              </div>
+            </ScrollReveal>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {certifications.length > 0 ? certifications.map((cert: any, idx: number) => (
+                <ScrollReveal key={cert.id} delay={idx * 0.1} className="col-span-1">
+                  <div className="group block h-full">
+                    <SpotlightCard className="p-8 h-full flex flex-col interactive overflow-hidden border border-slate-200/50 dark:border-white/5 hover:border-fuchsia-500/30 transition-colors" spotlightColor="rgba(217, 70, 239, 0.15)">
+                      <div className="mb-6 flex justify-between items-start">
+                        <div className="bg-fuchsia-500/10 text-fuchsia-500 p-3 rounded-2xl">
+                          <Award className="w-8 h-8" />
+                        </div>
+                        {cert.date && (
+                          <span className="text-xs font-mono text-slate-400 dark:text-gray-500 border border-slate-200 dark:border-white/10 px-3 py-1 rounded-full">
+                            {new Date(cert.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-fuchsia-500 transition-colors">
+                        {cert.name}
+                      </h3>
+                      <h4 className="text-sm font-bold text-slate-500 dark:text-gray-400 mb-6 uppercase tracking-wider">
+                        {cert.issuer}
+                      </h4>
+                      
+                      <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/10">
+                        {cert.url ? (
+                          <a href={cert.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-500 interactive">
+                            Vérifier la certification <ArrowRight className="w-4 h-4" />
+                          </a>
+                        ) : (
+                          <span className="text-sm font-bold text-slate-400 dark:text-gray-600">Certifié</span>
+                        )}
+                      </div>
+                    </SpotlightCard>
+                  </div>
+                </ScrollReveal>
+              )) : (
+                <div className="col-span-full py-20 text-center text-slate-500 font-mono">
+                  [AUCUNE CERTIFICATION - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
+                </div>
+              )}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <Link href="/certifications" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform">
+                Voir toutes les certifications <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </section>
