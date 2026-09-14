@@ -20,10 +20,10 @@ export default function AdminLayout({
             Profil & Vision
           </Link>
           <Link
-            href="/admin/skills"
+            href="/admin/certifications"
             className="block px-4 py-3 rounded-lg text-sm font-bold text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-white/10 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors"
           >
-            Écosystème (Stack)
+            Certifications
           </Link>
           <Link
             href="/admin/experience"

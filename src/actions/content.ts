@@ -27,23 +27,25 @@ export async function createProfile(data: any) {
   revalidatePath('/admin');
 }
 
-// --- SKILLS ---
-export async function getSkills() {
-  return await prisma.skill.findMany({
+// --- CERTIFICATIONS ---
+export async function getCertifications() {
+  return await prisma.certification.findMany({
     orderBy: { order: 'asc' }
   });
 }
 
-export async function createSkill(data: any) {
-  await prisma.skill.create({ data });
+export async function createCertification(data: any) {
+  await prisma.certification.create({ data });
   revalidatePath('/');
-  revalidatePath('/admin/skills');
+  revalidatePath('/admin/certifications');
+  revalidatePath('/certifications');
 }
 
-export async function deleteSkill(id: string) {
-  await prisma.skill.delete({ where: { id } });
+export async function deleteCertification(id: string) {
+  await prisma.certification.delete({ where: { id } });
   revalidatePath('/');
-  revalidatePath('/admin/skills');
+  revalidatePath('/admin/certifications');
+  revalidatePath('/certifications');
 }
 
 // --- EXPERIENCE ---

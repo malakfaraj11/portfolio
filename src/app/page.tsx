@@ -8,7 +8,7 @@ import prisma from '@/lib/prisma';
 
 export default async function Home() {
   const profile = await prisma.profile.findFirst({ include: { metrics: true } });
-  const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
+  const certifications = await prisma.certification.findMany({ orderBy: { order: 'asc' }, take: 3 });
   const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } });
   const projects = await prisma.project.findMany({ orderBy: { order: 'asc' }, take: 3 });
 
@@ -50,18 +50,7 @@ export default async function Home() {
                 ))}
               </h1>
 
-              {/* Skill Tags - Using Spotlight */}
-              <div className="flex flex-wrap gap-3 mb-10">
-                {skills.length > 0 ? skills.slice(0, 4).map(skill => (
-                  <SpotlightCard key={skill.id} className="px-4 py-2" spotlightColor="rgba(59, 130, 246, 0.2)">
-                    <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">{skill.name}</span>
-                  </SpotlightCard>
-                )) : (
-                  <SpotlightCard className="px-4 py-2" spotlightColor="rgba(59, 130, 246, 0.2)">
-                    <span className="text-xs font-mono font-bold tracking-widest text-slate-700 dark:text-gray-300 uppercase">AJOUTER DES SKILLS EN ADMIN</span>
-                  </SpotlightCard>
-                )}
-              </div>
+
 
               {/* Bio */}
               <p className="text-lg text-slate-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
@@ -130,19 +119,34 @@ export default async function Home() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto">
-              {/* Bento Card 1: Technologies / Skills */}
+              {/* Bento Card 1: Certifications */}
               <ScrollReveal delay={0.1}>
-                <SpotlightCard className="p-8 h-full">
+                <SpotlightCard className="p-8 h-full flex flex-col">
                   <div className="absolute top-0 right-0 p-4 font-mono text-xs opacity-30">01</div>
-                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-4 uppercase tracking-wider">Stack Technique</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.map(skill => (
-                      <span key={skill.id} className="text-xs font-mono font-bold bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/10">
-                        {skill.name}
-                      </span>
+                  <h3 className="text-xs font-mono font-bold text-slate-400 dark:text-gray-500 mb-4 uppercase tracking-wider">Certifications</h3>
+                  <div className="flex flex-col gap-4 flex-grow">
+                    {certifications.map((cert: any) => (
+                      <div key={cert.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-2">
+                        <div>
+                          <span className="text-xs font-bold text-slate-900 dark:text-white block">{cert.name}</span>
+                          <span className="text-[10px] text-slate-500">{cert.issuer}</span>
+                        </div>
+                        {cert.url && (
+                          <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline">
+                            Voir
+                          </a>
+                        )}
+                      </div>
                     ))}
-                    {skills.length === 0 && <span className="text-xs text-slate-500">Ajouter des technos dans l&apos;admin</span>}
+                    {certifications.length === 0 && <span className="text-xs text-slate-500">Ajouter des certifications dans l&apos;admin</span>}
                   </div>
+                  {certifications.length > 0 && (
+                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5">
+                      <Link href="/certifications" className="text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 flex items-center gap-2 interactive">
+                        Voir toutes les certifications <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  )}
                 </SpotlightCard>
               </ScrollReveal>
 
@@ -222,7 +226,7 @@ export default async function Home() {
                 </ScrollReveal>
               )) : (
                 <div className="col-span-full py-20 text-center text-slate-500 font-mono">
-                  [AUCUN PROJET - AJOUTEZ-EN DEPUIS L'ADMIN]
+                  [AUCUN PROJET - AJOUTEZ-EN DEPUIS L&apos;ADMIN]
                 </div>
               )}
             </div>
